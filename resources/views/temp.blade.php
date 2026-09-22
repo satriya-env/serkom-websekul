@@ -40,7 +40,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ url('/')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -58,7 +58,7 @@
                 </a>
                 <div id="collapseUser" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">Siswa</a>
+                        <a class="collapse-item" href="{{ url('/siswa') }}">Siswa</a>
                         <a class="collapse-item" href="#">Guru</a>
                     </div>
                 </div>
@@ -111,6 +111,11 @@
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
+            {{-- SidebarToggle --}}
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
         </ul>
 
         <!-- Content Wrapper -->
@@ -121,7 +126,7 @@
 
             <nav class="navbar navbar-expand navbar-dark bg-dark topbar static-top shadow">
 
-                <h1 class="h3 mb-0 text-white">Dashboard</h1>
+                <h1 class="h3 mb-0 text-white">@yield('title', 'Dashboard')</h1>
 
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -210,76 +215,7 @@
             <div class="container-fluid bg-dark min-vh-100">
 
                 <!-- Content Row -->
-                <div class="row">
-
-                    <div class="col-xl-3 col-md-6 my-4">
-                        <div class="card border-left-primary shadow h-100 py-2 bg-dark border-dark">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Earnings (Monthly)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-white">$40,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6 my-4">
-                        <div class="card border-left-primary shadow h-100 py-2 bg-dark border-dark">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Earnings (Monthly)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-white">$40,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6 my-4">
-                        <div class="card border-left-primary shadow h-100 py-2 bg-dark border-dark">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Earnings (Monthly)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-white">$40,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6 my-4">
-                        <div class="card border-left-primary shadow h-100 py-2 bg-dark border-dark">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Earnings (Monthly)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-white">$40,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card lainnya mengikuti struktur di atas... -->
-
-                </div>
+                @yield('content')
 
             </div>
 
@@ -327,21 +263,21 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
+        <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="{{asset('assets/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="{{asset('assets/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="{{asset('assets/js/sb-admin-2.min.js')}}"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="{{asset('assets/js/sb-admin-2.min.js')}}"></script>
 
-    <!-- Page level plugins -->
-    <script src="{{asset('assets/vendor/chart.js/Chart.min.js')}}"></script>
+        <!-- Page level plugins -->
+        <script src="{{asset('assets/vendor/chart.js/Chart.min.js')}}"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="{{asset('assets/js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{asset('assets/js/demo/chart-pie-demo.js')}}"></script>
+        <!-- Page level custom scripts -->
+        <script src="{{asset('assets/js/demo/chart-area-demo.js')}}"></script>
+        <script src="{{asset('assets/js/demo/chart-pie-demo.js')}}"></script>
 
 </body>
 

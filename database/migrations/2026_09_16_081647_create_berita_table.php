@@ -18,7 +18,11 @@ return new class extends Migration
             $table->text('isi');
             $table->date('tanggal');
             $table->string('gambar', 100);
-            $table->foreignId('idUser')->constrained('user');
+            $table->enum('status', ['draf','publish']);
+            $table->uuid('idUser');
+            $table->foreign('idUser')
+                    ->references('id')->on('user')
+                    ->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
         });
     }
