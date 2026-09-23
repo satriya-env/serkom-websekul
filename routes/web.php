@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\siswaController;
+use App\Http\Controllers\userController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 // ADMIN SIDE
@@ -9,10 +11,18 @@ use Illuminate\Support\Facades\Route;
         return view('admin.dashboard');
     })->name('dashboard');
 
-    // MENU USER
-    Route::get('/user', function() {
-        return view('admin.user');
-    })->name('user');
+    // MENU  DATA USER
+        //READ
+        Route::get('/user', [userController::class, 'index'])->name('user.index');
 
-    // DATA SISWA
-    Route::resource('siswa', siswaController::class);
+        //CREATE
+        Route::get('/user/create', [userController::class, 'create'])->name('user.create');
+        Route::post('/user', [userController::class, 'store'])->name('user.store');
+
+        //EDIT
+        Route::get('/user/edit/{id}', [userController::class, 'edit'])->name('user.edit');
+        Route::get('/user/update/{id}', [userController::class, 'update'])->name('user.update');
+
+        //DELETE
+        Route::get('/user/delete/{id}', [userController::class, 'delete'])->name('user.delete');
+        

@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('name', 30);
             $table->string('username', 30);
             $table->string('password', 100);
             $table->enum('role', ['Admin', 'Operator']);
-            $table->enum('status', ['Aktif','Nonaktif']);
+            $table->enum('status', ['Aktif','Nonaktif'])->default('Aktif');
             $table->timestamps();
         });
     }

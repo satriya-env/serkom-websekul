@@ -22,111 +22,10 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top bg-dark">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-                <div class="sidebar-brand-text mx-3">WEBSCHOOLS</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/')}}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="/user">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Manajemen User</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-            <!-- Nav Item - Data User -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
-                    aria-expanded="true" aria-controls="collapseUser">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Kesiswaan</span>
-                </a>
-                <div id="collapseUser" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ url('/siswa') }}">Siswa</a>
-                        <a class="collapse-item" href="#">Guru</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Akademik -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAkademik"
-                    aria-expanded="true" aria-controls="collapseAkademik">
-                    <i class="fas fa-fw fa-graduation-cap"></i>
-                    <span>Akademik</span>
-                </a>
-                <div id="collapseAkademik" class="collapse" aria-labelledby="headingAkademik" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">Program Keahlian</a>
-                        <a class="collapse-item" href="#">Ekstrakulikuler</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Informasi -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInformasi"
-                    aria-expanded="true" aria-controls="collapseInformasi">
-                    <i class="fas fa-fw fa-info-circle"></i>
-                    <span>Informasi</span>
-                </a>
-                <div id="collapseInformasi" class="collapse" aria-labelledby="headingInformasi" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">Profil Sekolah</a>
-                        <a class="collapse-item" href="#">Berita & Artikel</a>
-                        <a class="collapse-item" href="#">Galeri</a>
-                        <a class="collapse-item" href="#">Fasilitas</a>
-                        <a class="collapse-item" href="#">Prestasi</a>
-                    </div>
-                </div>
-            </li>
-            
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Inbox -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-envelope"></i>
-                    <span>Inbox</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            {{-- SidebarToggle --}}
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -135,8 +34,6 @@
             <div id="content">
 
             <nav class="navbar navbar-expand navbar-dark bg-dark topbar static-top shadow">
-
-                <h1 class="h3 mb-0 text-white">@yield('title', 'Dashboard')</h1>
 
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -222,10 +119,69 @@
             </nav>
 
             <!-- Begin Page Content (Tambahkan class min-vh-100) -->
-            <div class="container-fluid bg-dark min-vh-100">
+            <div class="container-fluid bg-dark min-vh-100 py-5">
 
-                <!-- Content Row -->
-                @yield('content')
+                <div class="card bg-dark mx-auto w-75">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form class="user w-50 mx-auto my-5" action="{{ route('user.update', $user->id) }}" method="PUT">
+                        @csrf
+                        <h3 class="text-center">Form User</h3>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" 
+                                id="name" 
+                                name="name" 
+                                placeholder="Nama Lengkap"
+                                value="{{ old('name', $user->name) }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" 
+                                id="username" 
+                                name="username" 
+                                placeholder="Enter username"
+                                value="{{ old('username', $user->username) }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" class="form-control" 
+                                id="password" 
+                                name="password" 
+                                placeholder="Kosongkan jika tidak ingin mengubah password">
+                        </div>
+
+                        <div class="form-group">
+                            <select name="role" id="role" class="form-control" required>
+                                <option value="">-- Pilih Role --</option>
+                                <option value="Admin" {{ old('role', $user->role) == 'Admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="Operator" {{ old('role', $user->role) == 'Operator' ? 'selected' : '' }}>Operator</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <select name="status" id="status" class="form-control" required>
+                                <option value="">-- Pilih Status --</option>
+                                <option value="Aktif" {{ old('status', $user->status) == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                <option value="Nonaktif" {{ old('status', $user->status) == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+                            </select>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+                
 
             </div>
 

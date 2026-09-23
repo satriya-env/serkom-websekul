@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class userController extends Controller
@@ -12,6 +13,8 @@ class userController extends Controller
     public function index()
     {
         //
+        $user = User::all();
+        return view('admin.user.index', compact('user'));
     }
 
     /**
@@ -20,6 +23,7 @@ class userController extends Controller
     public function create()
     {
         //
+        return view('admin.user.create');
     }
 
     /**
@@ -27,7 +31,23 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'     => 'required|string|max:30',
+            'username' => 'required|string|max:30|unique:user,username',
+            'password' => 'required|string|min:6',
+            'role'     => 'required|in:Admin,Operator',
+            'status'   => 'nullable|in:Aktif,Nonaktif',
+        ]);
+
+        User::create([
+            'name'     => $request->name,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'role'     => $request->role,
+            'status'   => $request->status ?? 'Aktif',
+        ]);
+
+        return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan');
     }
 
     /**
@@ -44,6 +64,8 @@ class userController extends Controller
     public function edit(string $id)
     {
         //
+        $user = User::findOrFail($id);
+        return view('admin.user.update', compact('user'));
     }
 
     /**
@@ -51,7 +73,27 @@ class userController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name'     => 'required|string|max:30',
+            'username' => 'required|string|max:30|unique:user,username,'.$user->id,
+            'password' => 'nullable|string|min:6',
+            'role'     => 'required|in:Admin,Operator',
+            'status'   => 'nullable|in:Aktif,Nonaktif',
+        ]);
+
+        $password = !empty($request->password) ? bcrypt($request->password) : $user->password;
+
+        $user->update([
+            'name'     => $request->name,
+            'username' => $request->username,
+            'password' => $password,
+            'role'     => $request->role,
+            'status'   => $request->status ?? 'Aktif',
+        ]);
+
+        return redirect()->route('user.index')->with('success', 'User berhasil diupdate');
     }
 
     /**
@@ -60,5 +102,13 @@ class userController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function delete($id){
+        $user = User::find($id);
+        if($user){
+            $user->delete();
+        }
+        return redirect()->route('user.index')->with('success', 'Data not found');
     }
 }

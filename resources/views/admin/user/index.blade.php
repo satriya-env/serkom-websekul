@@ -15,7 +15,7 @@
 {{-- CONTENT --}}
     <div class="row">
         <div class="col-lg-6 my-4">
-            <a href="#" class="btn btn-primary">Tambah data</a>
+            <a href="{{route('user.create')}}" class="btn btn-primary">Tambah data</a>
         </div>
     </div>
     <div class="table-responsive mx-auto rounded overflow-hidden" id="tableSiswa">
@@ -26,32 +26,31 @@
                     <th>Role</th>
                     <th>Status</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @forelse ($siswa as $data)
+                @forelse ($user as $data)
                     <tr>
-                        <td>{{$data->nisn}}</td>
-                        <td>{{$data->namaSiswa}}</td>
-                        <td>{{$data->jenisKelamin}}</td>
-                        <td>{{$data->tahunMasuk}}</td>
+                        <td>{{ $data->username }} </td>
+                        <td>{{ $data->role }} </td>
+                        <td>{{ $data->status }} </td>
                         <td>
-                            <a href="#" class="btn btn-primary">Edit</a>
+                            <a href="{{route('user.edit', $data->id)}}" class="btn btn-warning">
+                                Edit
+                            </a>
                         </td>
-                    </tr>    
+                        <td>
+                            <a href="{{route('user.delete', $data->id)}}" onclick="return confirm('Hapus Data{{$data->username}} ?')" class="btn btn-danger">
+                                Hapus
+                            </a>
+                        </td>
+                    </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center">Database masih kosong...</td>
+                        <td colspan="4" class="text-center">DATA NOT FOUND</td>
                     </tr>
-                @endforelse --}}
-                <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>
-                        <a href="#" class="btn btn-primary">Edit</a>
-                    </td>
-                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
