@@ -8,4 +8,11 @@ class siswa extends Model
 {
     //
     protected $table = 'siswa';
+
+    protected $fillable = [
+        'nisn',
+        'namaSiswa',
+        'jenisKelamin',
+        'tahunMasuk',
+    ];
 }

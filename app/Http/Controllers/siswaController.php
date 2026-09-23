@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\siswa;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
-class userController extends Controller
+class siswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -12,6 +14,8 @@ class userController extends Controller
     public function index()
     {
         //
+        $siswa = siswa::all();
+        return view('admin.siswa', compact('siswa'));
     }
 
     /**
@@ -41,7 +45,7 @@ class userController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(siswa $siswa)
     {
         //
     }
@@ -49,7 +53,7 @@ class userController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, siswa $siswa)
     {
         //
     }
@@ -57,7 +61,7 @@ class userController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(siswa $siswa)
     {
         //
     }

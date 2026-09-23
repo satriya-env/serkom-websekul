@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\userController;
+use App\Http\Controllers\siswaController;
 use Illuminate\Support\Facades\Route;
 
 // ADMIN SIDE
@@ -9,9 +9,10 @@ use Illuminate\Support\Facades\Route;
         return view('admin.dashboard');
     })->name('dashboard');
 
+    // MENU USER
+    Route::get('/user', function() {
+        return view('admin.user');
+    })->name('user');
+
     // DATA SISWA
-    Route::get('/siswa', [userController::class, 'index'])->name('siswa');
-    Route::get('/form', function () {
-        return view('formsiswa');
-    })->name('formsiswa');
-    
+    Route::resource('siswa', siswaController::class);

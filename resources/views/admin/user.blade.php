@@ -1,5 +1,5 @@
 @extends('temp')
-@section('title', 'Data Siswa')
+@section('title', 'Data User')
 @section('content')
 {{-- STYLES --}}
 <style>
@@ -14,7 +14,7 @@
 
 {{-- CONTENT --}}
     <div class="row">
-        <div class="col-lg-6 mb-4">
+        <div class="col-lg-6 my-4">
             <a href="#" class="btn btn-primary">Tambah data</a>
         </div>
     </div>
@@ -22,15 +22,14 @@
         <table class="table mb-0 text-light" id="dataTable">
             <thead class="table-dark">
                 <tr>
-                    <th>NISN</th>
-                    <th>Nama Siswa</th>
-                    <th>Gender</th>
-                    <th>Tahun Masuk</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($siswa as $data)
+                {{-- @forelse ($siswa as $data)
                     <tr>
                         <td>{{$data->nisn}}</td>
                         <td>{{$data->namaSiswa}}</td>
@@ -44,7 +43,15 @@
                     <tr>
                         <td colspan="6" class="text-center">Database masih kosong...</td>
                     </tr>
-                @endforelse
+                @endforelse --}}
+                <tr>
+                    <td>data</td>
+                    <td>data</td>
+                    <td>data</td>
+                    <td>
+                        <a href="#" class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

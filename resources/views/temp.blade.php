@@ -39,7 +39,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ url('/')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
@@ -49,12 +49,22 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/user')}}">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Manajemen User</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
             <!-- Nav Item - Data User -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
                     aria-expanded="true" aria-controls="collapseUser">
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Data User</span>
+                    <span>Kesiswaan</span>
                 </a>
                 <div id="collapseUser" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
