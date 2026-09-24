@@ -22,16 +22,17 @@
         <table class="table mb-0 text-light" id="dataTable">
             <thead class="table-dark">
                 <tr>
+                    <th>Nama</th>
                     <th>Username</th>
                     <th>Role</th>
                     <th>Status</th>
-                    <th></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($user as $data)
                     <tr>
+                        <td>{{ $data->name }} </td>
                         <td>{{ $data->username }} </td>
                         <td>{{ $data->role }} </td>
                         <td>{{ $data->status }} </td>
@@ -39,9 +40,7 @@
                             <a href="{{route('user.edit', $data->id)}}" class="btn btn-warning">
                                 Edit
                             </a>
-                        </td>
-                        <td>
-                            <a href="{{route('user.delete', $data->id)}}" onclick="return confirm('Hapus Data{{$data->username}} ?')" class="btn btn-danger">
+                            <a href="{{route('user.delete', $data->id)}}" onclick="return confirm('Hapus Data{{$data->username}} ?')" class="btn btn-danger mx-3">
                                 Hapus
                             </a>
                         </td>
