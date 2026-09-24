@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\profil;
+use App\Models\Profil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,7 +14,7 @@ class profilController extends Controller
     public function index()
     {
         //
-        $data = profil::first();
+        $data = Profil::first();
         return view('admin.profilSekolah.index', compact('data'));
     }
 
@@ -45,15 +45,17 @@ class profilController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
         //
+        $data = Profil::first() ?? new Profil();
+        return view('admin.profilSekolah.form', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         //
         $request->validate([
@@ -95,7 +97,7 @@ class profilController extends Controller
         // 2. Simpan semua perubahan ke database (aman untuk data baru maupun lama)
         $data->save();
 
-        return back()->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('profil.index')->with('success', 'Data berhasil diperbarui');
     }
 
     /**

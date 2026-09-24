@@ -36,7 +36,9 @@ use Illuminate\Support\Facades\Route;
             Route::get('/user/delete/{id}', [userController::class, 'delete'])->name('user.delete');
 
         // PROFIL SEKOLAH
-        Route::get('/profil', [profilController::class, 'index'])->name('profil.index');
+            Route::get('/profil', [profilController::class, 'index'])->name('profil.index');
+            Route::get('/profil/form', [profilController::class, 'edit'])->name('profil.form');
+            Route::put('/profil/update', [profilController::class, 'update'])->name('profil.update');
     });
 
         

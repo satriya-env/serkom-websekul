@@ -7,7 +7,7 @@
             <div class="mt-4">
                 <div class="row py-2 border-bottom align-items-center">
                     <div class="col-md-3 col-4 fw-bold text-dark">Logo</div>
-                    <div class="col-md-9 col-8">: <img src="{{ Storage::url($data->logo)}}" alt="logo" width="250"></div>
+                    <div class="col-md-9 col-8">: <img src="{{ Storage::url($data->logo)}}" alt="logo" width="150"></div>
                 </div>
 
                 <div class="row py-2 border-bottom align-items-center">
@@ -51,6 +51,6 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="btn btn-primary my-3 mx-5">Edit</a>
+        <a href="{{route('profil.form', $data->id)}}" class="btn btn-primary my-3 mx-5">Edit</a>
     </div>
 @endsection
