@@ -40,8 +40,8 @@
                     <i class="fa fa-bars"></i>
                 </button>
 
-                <a href="{{route('user.index')}}" class="btn btn-secondary">←</a>
-                
+                <a href="{{route('guru.index')}}" class="btn btn-secondary">←</a>
+
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
@@ -133,52 +133,43 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="user w-50 mx-auto my-5" action="{{ route('user.update', $user->id) }}" method="PUT">
+                    <form class="user w-50 mx-auto my-5" action="{{ route('guru.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <h3 class="text-center">Form User</h3>
+                        <h3 class="text-center">Form Guru</h3>
 
                         <div class="form-group">
-                            <h5>Nama lengkap</h5>
                             <input type="text" class="form-control" 
-                                id="name" 
-                                name="name" 
-                                placeholder="Nama Lengkap"
-                                value="{{ old('name', $user->name) }}" required>
+                                id="nip" 
+                                name="nip" 
+                                maxlength="15"
+                                placeholder="nip"
+                                value="{{ old('nip', $guru->nip) }}" required>
                         </div>
 
                         <div class="form-group">
-                            <h5>Username</h5>
                             <input type="text" class="form-control" 
-                                id="username" 
-                                name="username" 
-                                placeholder="Enter username"
-                                value="{{ old('username', $user->username) }}" required>
+                                id="namaGuru" 
+                                name="namaGuru" 
+                                placeholder="Nama Guru"
+                                value="{{ old('namaGuru') }}" required>
                         </div>
 
                         <div class="form-group">
-                            <h5>Password</h5>
-                            <input type="password" class="form-control" 
-                                id="password" 
-                                name="password" 
-                                placeholder="Kosongkan jika tidak ingin mengubah password">
+                            <input type="text" class="form-control" 
+                                id="mapel" 
+                                name="mapel" 
+                                placeholder="Mata Pelajaran"
+                                value="{{ old('mapel') }}" required>
                         </div>
 
                         <div class="form-group">
-                            <h5>Role</h5>
-                            <select name="role" id="role" class="form-control" required>
-                                <option value="">-- Pilih Role --</option>
-                                <option value="Admin" {{ old('role', $user->role) == 'Admin' ? 'selected' : '' }}>Admin</option>
-                                <option value="Operator" {{ old('role', $user->role) == 'Operator' ? 'selected' : '' }}>Operator</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <h5>Status</h5>
-                            <select name="status" id="status" class="form-control" required>
-                                <option value="">-- Pilih Status --</option>
-                                <option value="Aktif" {{ old('status', $user->status) == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                                <option value="Nonaktif" {{ old('status', $user->status) == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
-                            </select>
+                            <label for="foto" class="text-light">Foto Guru</label>
+                            @if(isset($guru->foto))
+                                <div class="mb-2">
+                                    <img src="{{ asset('storage/' . $guru->foto) }}" alt="Foto Guru" height="80" class="img-thumbnail bg-dark border-secondary">
+                                </div>
+                            @endif
+                            <input type="file" class="form-control-file text-light" id="foto" name="foto" accept="image/*">
                         </div>
 
                         <hr>

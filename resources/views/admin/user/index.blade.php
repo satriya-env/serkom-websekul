@@ -40,7 +40,7 @@
                             <a href="{{route('user.edit', $data->id)}}" class="btn btn-warning">
                                 Edit
                             </a>
-                            <a href="{{route('user.delete', $data->id)}}" onclick="return confirm('Hapus Data{{$data->username}} ?')" class="btn btn-danger mx-3">
+                            <a href="{{route('user.delete', $data->id)}}" onclick="return confirm('Hapus Data {{$data->username}}?')" class="btn btn-danger mx-3">
                                 Hapus
                             </a>
                         </td>

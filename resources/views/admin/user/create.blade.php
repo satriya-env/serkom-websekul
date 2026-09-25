@@ -40,6 +40,8 @@
                     <i class="fa fa-bars"></i>
                 </button>
 
+                <a href="{{route('user.index')}}" class="btn btn-secondary">←</a>
+
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
@@ -97,7 +99,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-300 small">Douglas McGee</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-300 small">{{Auth::user()->username}}</span>
                             <img class="img-profile rounded-circle" src="{{asset('assets/img/undraw_profile_2.svg')}}" height="50">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -136,6 +138,7 @@
                         <h3 class="text-center">Form User</h3>
 
                         <div class="form-group">
+                            <h5>Nama lengkap</h5>
                             <input type="text" class="form-control" 
                                 id="name" 
                                 name="name" 
@@ -144,6 +147,7 @@
                         </div>
 
                         <div class="form-group">
+                            <h5>Username</h5>
                             <input type="text" class="form-control" 
                                 id="username" 
                                 name="username" 
@@ -152,6 +156,7 @@
                         </div>
 
                         <div class="form-group">
+                            <h5>Password</h5>
                             <input type="password" class="form-control" 
                                 id="password" 
                                 name="password" 
@@ -160,6 +165,7 @@
                         </div>
 
                         <div class="form-group">
+                            <h5>Role</h5>
                             <select name="role" id="role" class="form-control" required>
                                 <option value="">-- Pilih Role --</option>
                                 <option value="Admin" {{ old('role') == 'Admin' ? 'selected' : '' }}>Admin</option>

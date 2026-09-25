@@ -83,7 +83,9 @@ class userController extends Controller
             'status'   => 'nullable|in:Aktif,Nonaktif',
         ]);
 
-        $password = !empty($request->password) ? bcrypt($request->password) : $user->password;
+        $password = !empty($request->password) 
+            ? bcrypt($request->password) 
+            : $user->password;
 
         $user->update([
             'name'     => $request->name,
@@ -109,6 +111,6 @@ class userController extends Controller
         if($user){
             $user->delete();
         }
-        return redirect()->route('user.index')->with('success', 'Data not found');
+        return redirect()->route('user.index')->with('success', 'Data berhasil dihapus');
     }
 }

@@ -40,8 +40,8 @@
                     <i class="fa fa-bars"></i>
                 </button>
 
-                <a href="{{route('user.index')}}" class="btn btn-secondary">←</a>
-                
+                <a href="{{route('siswa.index')}}" class="btn btn-secondary">←</a>
+
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
@@ -133,52 +133,48 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="user w-50 mx-auto my-5" action="{{ route('user.update', $user->id) }}" method="PUT">
+                    <form class="user w-50 mx-auto my-5" action="{{ route('siswa.update', $siswa->id) }}" method="POST">
                         @csrf
-                        <h3 class="text-center">Form User</h3>
+                        @method('PUT')
+                        
+                        <h3 class="text-center">Form Siswa</h3>
 
                         <div class="form-group">
-                            <h5>Nama lengkap</h5>
+                            <h5>NISN</h5>
+                            <input type="number" class="form-control" 
+                                id="nisn" 
+                                name="nisn" 
+                                placeholder="NISN"
+                                value="{{ old('nisn', $siswa->nisn) }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <h5>Nama Siswa</h5>
                             <input type="text" class="form-control" 
-                                id="name" 
-                                name="name" 
+                                id="namaSiswa" 
+                                name="namaSiswa" 
                                 placeholder="Nama Lengkap"
-                                value="{{ old('name', $user->name) }}" required>
+                                value="{{ old('namaSiswa', $siswa->namaSiswa) }}" required>
                         </div>
 
                         <div class="form-group">
-                            <h5>Username</h5>
-                            <input type="text" class="form-control" 
-                                id="username" 
-                                name="username" 
-                                placeholder="Enter username"
-                                value="{{ old('username', $user->username) }}" required>
-                        </div>
-
-                        <div class="form-group">
-                            <h5>Password</h5>
-                            <input type="password" class="form-control" 
-                                id="password" 
-                                name="password" 
-                                placeholder="Kosongkan jika tidak ingin mengubah password">
-                        </div>
-
-                        <div class="form-group">
-                            <h5>Role</h5>
-                            <select name="role" id="role" class="form-control" required>
-                                <option value="">-- Pilih Role --</option>
-                                <option value="Admin" {{ old('role', $user->role) == 'Admin' ? 'selected' : '' }}>Admin</option>
-                                <option value="Operator" {{ old('role', $user->role) == 'Operator' ? 'selected' : '' }}>Operator</option>
+                            <h5>Jenis Kelamin</h5>
+                            <select name="jenisKelamin" id="jenisKelamin" class="form-control" required>
+                                <option value="">Jenis Kelamin</option>
+                                <option value="Laki-laki" {{ old('jenisKelamin', $siswa->jenisKelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                <option value="Perempuan" {{ old('jenisKelamin', $siswa->jenisKelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <h5>Status</h5>
-                            <select name="status" id="status" class="form-control" required>
-                                <option value="">-- Pilih Status --</option>
-                                <option value="Aktif" {{ old('status', $user->status) == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                                <option value="Nonaktif" {{ old('status', $user->status) == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
-                            </select>
+                            <h5>Tahun Masuk</h5>
+                            <input type="number" class="form-control" 
+                                id="tahunMasuk" 
+                                name="tahunMasuk" 
+                                min="1998"
+                                max="{{ date('Y') }}"
+                                placeholder="Tahun Masuk"
+                                value="{{ old('tahunMasuk', $siswa->tahunMasuk) }}" required>
                         </div>
 
                         <hr>

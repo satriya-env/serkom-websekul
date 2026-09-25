@@ -68,8 +68,8 @@
                 </a>
                 <div id="collapseUser" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ url('/siswa') }}">Siswa</a>
-                        <a class="collapse-item" href="#">Guru</a>
+                        <a class="collapse-item" href="{{ route('siswa.index')}}">Siswa</a>
+                        <a class="collapse-item" href="{{route('guru.index')}}">Guru</a>
                     </div>
                 </div>
             </li>
@@ -253,17 +253,12 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content bg-dark">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Apakah anda ingin menghentikan sesi ini?</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <span class="m-3 h4">Logout</span>
+                <span class="modal-body">Apakah anda ingin menghentikan sesi ini?</span>
+                <div class="d-flex flex-row-reverse">
+                    <button class="btn btn-secondary mx-2 my-3" type="button" data-dismiss="modal">Cancel</button>
                     <form action="{{ route('logout') }}" method="post">
-                        <button type="submit" class="btn btn-danger">Logout</button>
+                        <button type="submit" class="btn btn-danger mx-2 my-3">Logout</button>
                     </form>
                 </div>
             </div>

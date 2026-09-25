@@ -1,53 +1,62 @@
 @extends('temp')
 @section('title', 'Profil Sekolah')
 @section('content')
-    <div class="card ">
+    <div class="card">
         <div class="card-body">
-            <h3 class="card-title">title</h3>
-            <div class="mt-4">
-                <div class="row py-2 border-bottom align-items-center">
-                    <div class="col-md-3 col-4 fw-bold text-dark">Logo</div>
-                    <div class="col-md-9 col-8">: <img src="{{ Storage::url($data->logo)}}" alt="logo" width="150"></div>
+            <div class="position-relative mb-5">
+                <img src="{{ Storage::url($data->foto) }}" 
+                    alt="foto"
+                    class="w-100 rounded"
+                    style="height: 325px; object-fit: cover;">
+                
+                <!-- Logo Bertumpuk di Sudut Kiri Bawah -->
+                <div class="position-absolute" style="left: 20px; bottom: -50px;">
+                    <img src="{{ Storage::url($data->logo) }}" 
+                        alt="logo" 
+                        class="rounded-circle bg-white p-2" 
+                        style="width: 120px; height: 120px; border: 3px solid #dadada; object-fit: contain;">
                 </div>
+            </div>
 
+            <div class="mt-4 pt-3">
                 <div class="row py-2 border-bottom align-items-center">
                     <div class="col-md-3 col-4 fw-bold text-dark">Nama Sekolah</div>
-                    <div class="col-md-9 col-8">: {{ $data->namaSekolah }}</div>
+                    <div class="col-md-9 col-8">{{ $data->namaSekolah }}</div>
                 </div>
 
                 <div class="row py-2 border-bottom align-items-center">
                     <div class="col-md-3 col-4 fw-bold text-dark">Kepala Sekolah</div>
-                    <div class="col-md-9 col-8">: {{ $data->kepalaSekolah }}</div>
+                    <div class="col-md-9 col-8">{{ $data->kepalaSekolah }}</div>
                 </div>
 
                 <div class="row py-2 border-bottom align-items-center">
                     <div class="col-md-3 col-4 fw-bold text-dark">NPSN</div>
-                    <div class="col-md-9 col-8">: {{ $data->npsn }}</div>
+                    <div class="col-md-9 col-8">{{ $data->npsn }}</div>
                 </div>
 
                 <div class="row py-2 border-bottom align-items-center">
                     <div class="col-md-3 col-4 fw-bold text-dark">Kontak</div>
-                    <div class="col-md-9 col-8">: {{ $data->kontak }}</div>
+                    <div class="col-md-9 col-8">{{ $data->kontak }}</div>
                 </div>
 
                 <div class="row py-2 border-bottom align-items-center">
                     <div class="col-md-3 col-4 fw-bold text-dark">Tahun Berdiri</div>
-                    <div class="col-md-9 col-8">: {{ $data->tahunBerdiri }}</div>
+                    <div class="col-md-9 col-8">{{ $data->tahunBerdiri }}</div>
                 </div>
 
                 <div class="row py-2 border-bottom align-items-center">
                     <div class="col-md-3 col-4 fw-bold text-dark">Alamat</div>
-                    <div class="col-md-9 col-8">: {{ $data->alamat }}</div>
+                    <div class="col-md-9 col-8">{{ $data->alamat }}</div>
                 </div>
 
                 <div class="row py-2 border-bottom align-items-center">
-                    <div class="col-md-3 col-4 fw-bold text-dark">Misi & Misi</div>
-                    <div class="col-md-9 col-8" style="white-space: pre-line;">: {{ $data->visiMisi }}</div>
+                    <div class="col-md-3 col-4 fw-bold text-dark">Visi & Misi</div>
+                    <div class="col-md-9 col-8" style="white-space: pre-line;">{{ $data->visiMisi }}</div>
                 </div>
 
                 <div class="row py-2 border-bottom align-items-center">
                     <div class="col-md-3 col-4 fw-bold text-dark">Deskripsi</div>
-                    <div class="col-md-9 col-8">: {{ $data->deskripsi }}</div>
+                    <div class="col-md-9 col-8">{{ $data->deskripsi }}</div>
                 </div>
             </div>
         </div>

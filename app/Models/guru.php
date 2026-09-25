@@ -4,7 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class guru extends Model
+class Guru extends Model
 {
     //
+    protected $table ='guru';
+    protected $fillable = [
+        'namaGuru',
+        'nip',
+        'mapel',
+        'foto',
+    ];
 }

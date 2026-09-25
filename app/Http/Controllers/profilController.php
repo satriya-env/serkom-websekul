@@ -61,7 +61,8 @@ class profilController extends Controller
         $request->validate([
             'namaSekolah'   => 'required|string|max:40',
             'kepalaSekolah' => 'required|string|max:40',
-            'logo'          => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // 1. DIUBAH ke nullable
+            'foto'          => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
+            'logo'          => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
             'npsn'          => 'required|string|max:10',
             'alamat'        => 'required|string',
             'kontak'        => 'required|string|max:15',
@@ -73,6 +74,17 @@ class profilController extends Controller
         $data = profil::first() ?? new profil();
 
         // Olah gambar jika ada file baru di-upload
+        if ($request->hasFile('foto')) {
+            // Hapus logo lama dari folder storage jika ada
+            if ($data->foto && Storage::disk('public')->exists($data->foto)) {
+                Storage::disk('public')->delete($data->logo);
+            }
+
+            // Simpan logo baru dan update properti $data->logo
+            $path = $request->file('foto')->store('profil/foto', 'public');
+            $data->foto = $path;
+        }
+
         if ($request->hasFile('logo')) {
             // Hapus logo lama dari folder storage jika ada
             if ($data->logo && Storage::disk('public')->exists($data->logo)) {
@@ -80,11 +92,10 @@ class profilController extends Controller
             }
 
             // Simpan logo baru dan update properti $data->logo
-            $path = $request->file('logo')->store('profil', 'public');
+            $path = $request->file('logo')->store('profil/logo', 'public');
             $data->logo = $path;
         }
-
-        // Assign data teks ke properti model
+        
         $data->namaSekolah   = $request->namaSekolah;
         $data->kepalaSekolah = $request->kepalaSekolah;
         $data->npsn          = $request->npsn;
@@ -93,8 +104,6 @@ class profilController extends Controller
         $data->visiMisi      = $request->visiMisi;
         $data->tahunBerdiri  = $request->tahunBerdiri;
         $data->deskripsi     = $request->deskripsi;
-
-        // 2. Simpan semua perubahan ke database (aman untuk data baru maupun lama)
         $data->save();
 
         return redirect()->route('profil.index')->with('success', 'Data berhasil diperbarui');

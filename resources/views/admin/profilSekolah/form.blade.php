@@ -149,7 +149,17 @@
                                 
                                 <h3 class="text-center text-white mb-4">Form Data Sekolah</h3>
 
-                                <!-- Logo Sekolah -->
+                                {{--  Input file gambar --}}
+                                <div class="form-group">
+                                    <label for="foto" class="text-light">Foto Sekolah</label>
+                                    @if(isset($data->foto))
+                                        <div class="mb-2">
+                                            <img src="{{ asset('storage/' . $data->foto) }}" alt="Logo Sekolah" height="80" class="img-thumbnail bg-dark border-secondary">
+                                        </div>
+                                    @endif
+                                    <input type="file" class="form-control-file text-light" id="foto" name="foto" accept="image/*">
+                                </div>
+
                                 <div class="form-group">
                                     <label for="logo" class="text-light">Logo Sekolah</label>
                                     @if(isset($data->logo))
@@ -160,7 +170,7 @@
                                     <input type="file" class="form-control-file text-light" id="logo" name="logo" accept="image/*">
                                 </div>
 
-                                <!-- Nama Sekolah -->
+                                {{-- Nama Sekolah  --}}
                                 <div class="form-group">
                                     <label for="namaSekolah" class="text-light">Nama Sekolah</label>
                                     <input type="text" class="form-control" 
@@ -170,7 +180,7 @@
                                         value="{{ old('namaSekolah', $data->namaSekolah ?? '') }}" required>
                                 </div>
 
-                                <!-- Kepala Sekolah -->
+                                {{--  Kepala Sekolah  --}}
                                 <div class="form-group">
                                     <label for="kepalaSekolah" class="text-light">Kepala Sekolah</label>
                                     <input type="text" class="form-control" 
@@ -180,7 +190,7 @@
                                         value="{{ old('kepalaSekolah', $data->kepalaSekolah ?? '') }}" required>
                                 </div>
 
-                                <!-- NPSN -->
+                                {{--  NPSN  --}}
                                 <div class="form-group">
                                     <label for="npsn" class="text-light">NPSN</label>
                                     <input type="text" class="form-control" 
@@ -190,7 +200,7 @@
                                         value="{{ old('npsn', $data->npsn ?? '') }}" required>
                                 </div>
 
-                                <!-- Kontak -->
+                                {{--  Kontak  --}}
                                 <div class="form-group">
                                     <label for="kontak" class="text-light">Kontak / No. Telepon</label>
                                     <input type="text" class="form-control" 
@@ -200,7 +210,7 @@
                                         value="{{ old('kontak', $data->kontak ?? '') }}" required>
                                 </div>
 
-                                <!-- Tahun Berdiri -->
+                                {{--  Tahun Berdiri  --}}
                                 <div class="form-group">
                                     <label for="tahunBerdiri" class="text-light">Tahun Berdiri</label>
                                     <input type="number" class="form-control" 
@@ -210,7 +220,7 @@
                                         value="{{ old('tahunBerdiri', $data->tahunBerdiri ?? '') }}" required>
                                 </div>
 
-                                <!-- Alamat -->
+                                {{--  Alamat  --}}
                                 <div class="form-group">
                                     <label for="alamat" class="text-light">Alamat</label>
                                     <textarea class="form-control" 
@@ -220,7 +230,7 @@
                                         placeholder="Alamat Lengkap Sekolah" required>{{ old('alamat', $data->alamat ?? '') }}</textarea>
                                 </div>
 
-                                <!-- Visi & Misi -->
+                                {{--  Visi & Misi  --}}
                                 <div class="form-group">
                                     <label for="visiMisi" class="text-light">Visi & Misi</label>
                                     <textarea class="form-control" 
@@ -230,7 +240,7 @@
                                         placeholder="Misi / Visi Sekolah" required>{{ old('visiMisi', $data->visiMisi ?? '') }}</textarea>
                                 </div>
 
-                                <!-- Deskripsi -->
+                                {{--  Deskripsi  --}}
                                 <div class="form-group">
                                     <label for="deskripsi" class="text-light">Deskripsi</label>
                                     <textarea class="form-control" 

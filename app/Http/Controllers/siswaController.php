@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\siswa;
+use App\Models\Siswa;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
@@ -14,8 +14,8 @@ class siswaController extends Controller
     public function index()
     {
         //
-        $siswa = siswa::all();
-        return view('admin.siswa', compact('siswa'));
+        $siswa = Siswa::all();
+        return view('admin.siswa.index', compact('siswa'));
     }
 
     /**
@@ -24,6 +24,7 @@ class siswaController extends Controller
     public function create()
     {
         //
+        return view('admin.siswa.create');
     }
 
     /**
@@ -32,6 +33,21 @@ class siswaController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'nisn' => 'required|string|size:10|unique:siswa,nisn',
+            'namaSiswa' => 'required|string|max:40',
+            'jenisKelamin' => 'required|in:Laki-laki,Perempuan',
+            'tahunMasuk' => 'required|integer|digits:4',
+        ]);
+
+        Siswa::create([
+            'nisn' => $request->nisn,
+            'namaSiswa' => $request->namaSiswa,
+            'jenisKelamin' => $request->jenisKelamin,
+            'tahunMasuk' => $request->tahunMasuk,
+        ]);
+
+        return redirect()->route('siswa.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -45,17 +61,34 @@ class siswaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(siswa $siswa)
+    public function edit(string $id)
     {
         //
+        $siswa = Siswa::findOrFail($id);
+        return view('admin.siswa.update', compact('siswa'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, siswa $siswa)
+    public function update(Request $request, string $id)
     {
         //
+        $siswa = Siswa::findOrFail($id);
+        $request->validate([
+            'nisn' => 'required|string|max:10',
+            'namaSiswa' => 'required|string|max:40',
+            'jenisKelamin' => 'required|in:Laki-laki,Perempuan',
+            'tahunMasuk' => 'required|integer|digits:4|min:1998|max:'.date('Y'),
+        ]);
+        $siswa->create([
+            'nisn' => $request->nisn,
+            'namaSiswa' => $request->namaSiswa,
+            'jenisKelamin' => $request->jenisKelamin,
+            'tahunMasuk' => $request->tahunMasuk,
+        ]);
+
+        return redirect()->route('siswa.index')->with('success', 'Data Siswa berhasil diedit');
     }
 
     /**
@@ -64,5 +97,13 @@ class siswaController extends Controller
     public function destroy(siswa $siswa)
     {
         //
+    }
+
+    public function delete($id){
+        $siswa = Siswa::find($id);
+        if ($siswa) {
+            $siswa->delete();
+        }
+        return redirect()->route('siswa.index')->with('success', 'Data berhasil dihapus');
     }
 }

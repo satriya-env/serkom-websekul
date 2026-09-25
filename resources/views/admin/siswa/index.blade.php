@@ -15,7 +15,7 @@
 {{-- CONTENT --}}
     <div class="row">
         <div class="col-lg-6 mb-4">
-            <a href="#" class="btn btn-primary">Tambah data</a>
+            <a href="{{route('siswa.create')}}" class="btn btn-primary">Tambah data</a>
         </div>
     </div>
     <div class="table-responsive mx-auto rounded overflow-hidden" id="tableSiswa">
@@ -37,7 +37,12 @@
                         <td>{{$data->jenisKelamin}}</td>
                         <td>{{$data->tahunMasuk}}</td>
                         <td>
-                            <a href="#" class="btn btn-primary">Edit</a>
+                            <a href="{{route('siswa.edit', $data->id)}}" class="btn btn-warning">
+                                Edit
+                            </a>
+                            <a href="{{route('siswa.delete', $data->id)}}" onclick="return confirm('Hapus Data {{$data->namaSiswa}}?')" class="btn btn-danger mx-3">
+                                Hapus
+                            </a>
                         </td>
                     </tr>    
                 @empty
