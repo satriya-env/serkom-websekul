@@ -41,7 +41,7 @@ class guruController extends Controller
         ]);
         
         $path = $request->hasFile('foto')
-            ? $request->file('foto')->store('guru/foto', 'public')
+            ? $request->file('foto')->store('guru', 'public')
             : null;
 
         Guru::create([
@@ -50,6 +50,7 @@ class guruController extends Controller
             'mapel' => $request->mapel,
             'foto' => $path
         ]);
+        return redirect()->route('guru.index')->with('success','Data berhasil diperbarui');
     }
 
     /**
@@ -89,7 +90,7 @@ class guruController extends Controller
             if ($guru->foto && Storage::disk('public')->exists($guru->foto)) {
                 Storage::disk('public')->delete($guru->foto);
             }
-            $path = $request->file('foto')->store('guru/foto', 'public');
+            $path = $request->file('foto')->store('guru', 'public');
             $guru->foto = $path;
         }
 

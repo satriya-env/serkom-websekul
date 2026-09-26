@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\galeriController;
 use App\Http\Controllers\guruController;
 use App\Http\Controllers\profilController;
 use App\Http\Controllers\siswaController;
@@ -19,7 +21,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
         // DASHBOARD
-        Route::get('/', fn() => view('admin.dashboard'))->name('dashboard');
+            Route::get('/', fn() => view('admin.dashboard'))->name('dashboard');
 
         // MENU  DATA USER
             //READ
@@ -54,7 +56,7 @@ use Illuminate\Support\Facades\Route;
 
             //UPDATE
             Route::get('/siswa/edit/{id}', [siswaController::class, 'edit'])->name('siswa.edit');
-            Route::put('/siswa', [siswaController::class, 'update'])->name('siswa.update');
+            Route::put('/siswa/update/{id}', [siswaController::class, 'update'])->name('siswa.update');
 
             //DELETE
             Route::get('/siswa/delete/{id}', [siswaController::class, 'delete'])->name('siswa.delete');
@@ -73,6 +75,36 @@ use Illuminate\Support\Facades\Route;
 
             //DELETE
             Route::get('/guru/delete/{id}', [guruController::class, 'delete'])->name('guru.delete');
+
+        // GALERI
+            // READ
+            Route::get('/galeri', [galeriController::class, 'index'])->name('galeri.index');
+
+            // CREATE
+            Route::get('/galeri/create', [galeriController::class, 'create'])->name('galeri.create');
+            Route::post('/galeri/', [galeriController::class, 'store'])->name('galeri.store');
+
+            //UPDATE
+            Route::get('/galeri/edit/{id}', [galeriController::class, 'edit'])->name('galeri.edit');
+            Route::put('/galeri/update/{id}', [galeriController::class, 'update'])->name('galeri.update');
+
+            // DELETE
+            Route::get('/galeri/delete/{id}', [galeriController::class, 'delete'])->name('galeri.delete');
+
+        // BERITA
+            // READ (INDEX)
+            Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+
+            // CREATE
+            Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create');
+            Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
+
+            // UPDATE
+            Route::get('/berita/edit/{id}', [BeritaController::class, 'edit'])->name('berita.edit');
+            Route::put('/berita/update/{id}', [BeritaController::class, 'update'])->name('berita.update');
+
+            // DELETE
+            Route::get('/berita/delete/{id}', [BeritaController::class, 'delete'])->name('berita.delete'); 
     });
 
         

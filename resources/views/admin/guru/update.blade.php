@@ -133,7 +133,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="user w-50 mx-auto my-5" action="{{ route('guru.update', $guru->id) }}" method="POST">
+                    <form class="user w-50 mx-auto my-5" action="{{ route('guru.update', $guru->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <h3 class="text-center">Form Guru</h3>

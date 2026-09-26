@@ -143,7 +143,7 @@
                                 name="nip" 
                                 maxlength="15"
                                 placeholder="nip"
-                                value="{{ old('nip', $guru->nip) }}" required>
+                                value="{{ old('nip') }}" required>
                         </div>
 
                         <div class="form-group">
@@ -164,12 +164,17 @@
 
                         <div class="form-group">
                             <label for="foto" class="text-light">Foto Guru</label>
-                            @if(isset($guru->foto))
-                                <div class="mb-2">
-                                    <img src="{{ asset('storage/' . $guru->foto) }}" alt="Foto Guru" height="80" class="img-thumbnail bg-dark border-secondary">
-                                </div>
-                            @endif
-                            <input type="file" class="form-control-file text-light" id="foto" name="foto" accept="image/*">
+                            
+                            <!-- Container Preview Gambar -->
+                            <div id="previewContainer" class="mb-2" style="{{ isset($guru->foto) ? 'display: block;' : 'display: none;' }}">
+                                <img id="preview" 
+                                    src="{{ isset($guru->foto) ? asset('storage/' . $guru->foto) : '#' }}" 
+                                    alt="Foto Guru" 
+                                    height="80" 
+                                    class="img-thumbnail bg-dark border-secondary">
+                            </div>
+
+                            <input type="file" class="form-control-file text-light" id="foto" name="foto" accept="image/*" onchange="previewImage(event)">
                         </div>
 
                         <hr>
@@ -242,6 +247,26 @@
         <!-- Page level custom scripts -->
         <script src="{{asset('assets/js/demo/chart-area-demo.js')}}"></script>
         <script src="{{asset('assets/js/demo/chart-pie-demo.js')}}"></script>
+        
+        <!-- JavaScript Preview -->
+        <script>
+        function previewImage(event) {
+            const input = event.target;
+            const previewContainer = document.getElementById('previewContainer');
+            const previewImg = document.getElementById('preview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        </script>
 
 </body>
 

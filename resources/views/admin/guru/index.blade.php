@@ -1,5 +1,5 @@
 @extends('temp')
-@section('title', 'Data Siswa')
+@section('title', 'Data Guru')
 @section('content')
 {{-- STYLES --}}
 <style>
@@ -45,7 +45,8 @@
                             <a href="{{route('guru.edit', $data->id)}}" class="btn btn-warning">
                                 Edit
                             </a>
-                            <a href="{{route('guru.delete', $data->id)}}" onclick="return confirm('Hapus Data {{$data->namaGuru}}?')" class="btn btn-danger mx-3">
+                            <a href="{{route('guru.delete', $data->id)}}"
+                                onclick="return confirm('Hapus Data {{$data->namaGuru}}?')" class="btn btn-danger mx-3">
                                 Hapus
                             </a>
                         </td>

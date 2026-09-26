@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('isi');
             $table->date('tanggal');
             $table->string('gambar', 100);
-            $table->enum('status', ['draf','publish']);
+            $table->enum('status', ['Draf','Publish']);
             $table->uuid('idUser');
             $table->foreign('idUser')
                     ->references('id')->on('user')

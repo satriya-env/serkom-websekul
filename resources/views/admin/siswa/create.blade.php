@@ -138,9 +138,11 @@
                         <h3 class="text-center">Form User</h3>
 
                         <div class="form-group">
-                            <input type="number" class="form-control" 
+                            <input type="text" class="form-control" 
                                 id="nisn" 
                                 name="nisn" 
+                                maxlength="10"
+                                inputmode="numeric"
                                 placeholder="NISN"
                                 value="{{ old('nisn') }}" required>
                         </div>

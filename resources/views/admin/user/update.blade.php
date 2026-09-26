@@ -133,8 +133,9 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="user w-50 mx-auto my-5" action="{{ route('user.update', $user->id) }}" method="PUT">
+                    <form class="user w-50 mx-auto my-5" action="{{ route('user.update', $user->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <h3 class="text-center">Form User</h3>
 
                         <div class="form-group">

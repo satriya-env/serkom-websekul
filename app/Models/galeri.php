@@ -2,9 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-class galeri extends Model
+class Galeri extends Model
 {
     //
+    protected $table = "galeri";
+    protected $fillable = [
+        'judul', 'keterangan', 'file', 'kategori', 'tanggal'
+    ];
 }

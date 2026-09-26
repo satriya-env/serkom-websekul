@@ -71,7 +71,7 @@ class siswaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         //
         $siswa = Siswa::findOrFail($id);
@@ -81,7 +81,7 @@ class siswaController extends Controller
             'jenisKelamin' => 'required|in:Laki-laki,Perempuan',
             'tahunMasuk' => 'required|integer|digits:4|min:1998|max:'.date('Y'),
         ]);
-        $siswa->create([
+        $siswa->update([
             'nisn' => $request->nisn,
             'namaSiswa' => $request->namaSiswa,
             'jenisKelamin' => $request->jenisKelamin,

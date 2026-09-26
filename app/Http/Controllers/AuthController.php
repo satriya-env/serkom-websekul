@@ -22,6 +22,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+
         if (Auth::attempt($token, $request->boolean('remember'))) {
             $request->session()->regenerate();
             return redirect()->intended(route('dashboard'));
@@ -30,7 +31,6 @@ class AuthController extends Controller
         return back()
             ->withErrors(['username' => 'Username atau Password salah'])
             ->onlyInput('username');
-
     
     }
     
