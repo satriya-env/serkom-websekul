@@ -66,27 +66,12 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
                     aria-expanded="true" aria-controls="collapseUser">
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Kesiswaan</span>
+                    <span>Data Kesiswaan</span>
                 </a>
                 <div id="collapseUser" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('siswa.index')}}">Siswa</a>
                         <a class="collapse-item" href="{{route('guru.index')}}">Guru</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Akademik -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAkademik"
-                    aria-expanded="true" aria-controls="collapseAkademik">
-                    <i class="fas fa-fw fa-graduation-cap"></i>
-                    <span>Akademik</span>
-                </a>
-                <div id="collapseAkademik" class="collapse" aria-labelledby="headingAkademik" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">Program Keahlian</a>
-                        <a class="collapse-item" href="#">Ekstrakulikuler</a>
                     </div>
                 </div>
             </li>
@@ -109,14 +94,6 @@
             
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Inbox -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-envelope"></i>
-                    <span>Inbox</span>
-                </a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

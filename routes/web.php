@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\galeriController;
 use App\Http\Controllers\guruController;
 use App\Http\Controllers\profilController;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
         // DASHBOARD
-            Route::get('/', fn() => view('admin.dashboard'))->name('dashboard');
+            Route::get('/', [dashboardController::class, 'index'])->name('dashboard');
 
         // MENU  DATA USER
             //READ
