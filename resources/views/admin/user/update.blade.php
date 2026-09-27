@@ -33,164 +33,104 @@
             <!-- Main Content -->
             <div id="content">
 
-            <nav class="navbar navbar-expand navbar-dark bg-dark topbar static-top shadow">
+                <nav class="navbar navbar-expand navbar-dark bg-dark topbar static-top shadow">
 
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3 text-white bg-dark">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
-                <a href="{{route('user.index')}}" class="btn btn-secondary">←</a>
-                
-                <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
 
-                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                            aria-labelledby="searchDropdown">
-                            <form class="form-inline mr-auto w-100 navbar-search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small"
-                                        placeholder="Search for..." aria-label="Search"
-                                        aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
-
-                    <!-- Nav Item - Alerts -->
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-bell fa-fw"></i>
-                            <span class="badge badge-danger badge-counter">99+</span>
-                        </a>
-                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                            aria-labelledby="alertsDropdown">
-                            <h6 class="dropdown-header">Alerts Center</h6>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-primary">
-                                        <i class="fas fa-file-alt text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 12, 2019</div>
-                                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                </div>
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-300 small">{{Auth::user()->username}}</span>
+                                <img class="img-profile rounded-circle" src="{{asset('assets/img/undraw_profile_2.svg')}}" height="50">
                             </a>
-                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                        </div>
-                    </li>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
 
-                    <div class="topbar-divider d-none d-sm-block"></div>
+                    </ul>
 
-                    <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-300 small">{{Auth::user()->username}}</span>
-                            <img class="img-profile rounded-circle" src="{{asset('assets/img/undraw_profile_2.svg')}}" height="50">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                            aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
-                        </div>
-                    </li>
+                </nav>
 
-                </ul>
+                <div class="container-fluid bg-dark min-vh-100 py-5">
 
-            </nav>
+                    <div class="card bg-dark mx-auto w-75">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <form class="user w-50 mx-auto my-5" action="{{ route('user.update', $user->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <h3 class="text-center">Form User</h3>
 
-            <!-- Begin Page Content (Tambahkan class min-vh-100) -->
-            <div class="container-fluid bg-dark min-vh-100 py-5">
+                            <div class="form-group">
+                                <h5>Nama lengkap</h5>
+                                <input type="text" class="form-control" 
+                                    id="name" 
+                                    name="name" 
+                                    placeholder="Nama Lengkap"
+                                    value="{{ old('name', $user->name) }}" required>
+                            </div>
 
-                <div class="card bg-dark mx-auto w-75">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <form class="user w-50 mx-auto my-5" action="{{ route('user.update', $user->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <h3 class="text-center">Form User</h3>
+                            <div class="form-group">
+                                <h5>Username</h5>
+                                <input type="text" class="form-control" 
+                                    id="username" 
+                                    name="username" 
+                                    placeholder="Enter username"
+                                    value="{{ old('username', $user->username) }}" required>
+                            </div>
 
-                        <div class="form-group">
-                            <h5>Nama lengkap</h5>
-                            <input type="text" class="form-control" 
-                                id="name" 
-                                name="name" 
-                                placeholder="Nama Lengkap"
-                                value="{{ old('name', $user->name) }}" required>
-                        </div>
+                            <div class="form-group">
+                                <h5>Password</h5>
+                                <input type="password" class="form-control" 
+                                    id="password" 
+                                    name="password" 
+                                    placeholder="Kosongkan jika tidak ingin mengubah password">
+                            </div>
 
-                        <div class="form-group">
-                            <h5>Username</h5>
-                            <input type="text" class="form-control" 
-                                id="username" 
-                                name="username" 
-                                placeholder="Enter username"
-                                value="{{ old('username', $user->username) }}" required>
-                        </div>
+                            <div class="form-group">
+                                <h5>Role</h5>
+                                <select name="role" id="role" class="form-control" required>
+                                    <option value="">-- Pilih Role --</option>
+                                    <option value="Admin" {{ old('role', $user->role) == 'Admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="Operator" {{ old('role', $user->role) == 'Operator' ? 'selected' : '' }}>Operator</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <h5>Password</h5>
-                            <input type="password" class="form-control" 
-                                id="password" 
-                                name="password" 
-                                placeholder="Kosongkan jika tidak ingin mengubah password">
-                        </div>
+                            <div class="form-group">
+                                <h5>Status</h5>
+                                <select name="status" id="status" class="form-control" required>
+                                    <option value="">-- Pilih Status --</option>
+                                    <option value="Aktif" {{ old('status', $user->status) == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                    <option value="Nonaktif" {{ old('status', $user->status) == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <h5>Role</h5>
-                            <select name="role" id="role" class="form-control" required>
-                                <option value="">-- Pilih Role --</option>
-                                <option value="Admin" {{ old('role', $user->role) == 'Admin' ? 'selected' : '' }}>Admin</option>
-                                <option value="Operator" {{ old('role', $user->role) == 'Operator' ? 'selected' : '' }}>Operator</option>
-                            </select>
-                        </div>
+                            <hr>
 
-                        <div class="form-group">
-                            <h5>Status</h5>
-                            <select name="status" id="status" class="form-control" required>
-                                <option value="">-- Pilih Status --</option>
-                                <option value="Aktif" {{ old('status', $user->status) == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                                <option value="Nonaktif" {{ old('status', $user->status) == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
-                            </select>
-                        </div>
-
-                        <hr>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block">Simpan</button>
-                        </div>
-                    </form>
-                </div>
-                
-
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>    
             </div>
 
             <!-- End of Main Content -->
