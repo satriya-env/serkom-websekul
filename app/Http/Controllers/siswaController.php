@@ -11,11 +11,19 @@ class siswaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $siswa = Siswa::all();
-        return view('admin.siswa.index', compact('siswa'));
+        //READ ALL
+        $siswa = Siswa::when($request->filled('tahunMasuk'), function ($query) use ($request){
+            return $query->where('tahunMasuk', $request->tahunMasuk);
+        })->get();
+
+        // FILTER TAHUN MASUK
+        $filter =Siswa::distinct('tahunMasuk')
+                        ->orderBy('tahunMasuk', 'desc')
+                        ->pluck('tahunMasuk'); 
+        
+        return view('admin.siswa.index', compact('siswa', 'filter'));
     }
 
     /**

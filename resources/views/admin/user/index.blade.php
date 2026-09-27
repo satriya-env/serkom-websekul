@@ -18,36 +18,38 @@
             <a href="{{route('user.create')}}" class="btn btn-primary">Tambah data</a>
         </div>
     </div>
-    <div class="table-responsive mx-auto rounded overflow-hidden" id="tableSiswa">
-        <table class="table mb-0 text-light" id="dataTable">
+    <div class="table-responsive mx-auto rounded" id="tableSiswa">
+        <table class="table mb-0 text-light text-nowrap" id="dataTable" style="min-width: 650px;">
             <thead class="table-dark">
                 <tr>
                     <th>Nama</th>
                     <th>Username</th>
                     <th>Role</th>
                     <th>Status</th>
-                    <th></th>
+                    <th class="text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($user as $data)
                     <tr>
-                        <td>{{ $data->name }} </td>
-                        <td>{{ $data->username }} </td>
-                        <td>{{ $data->role }} </td>
-                        <td>{{ $data->status }} </td>
-                        <td>
-                            <a href="{{route('user.edit', $data->id)}}" class="btn btn-warning">
-                                Edit
-                            </a>
-                            <a href="{{route('user.delete', $data->id)}}" onclick="return confirm('Hapus Data {{$data->username}}?')" class="btn btn-danger mx-3">
-                                Hapus
-                            </a>
+                        <td>{{ $data->name }}</td>
+                        <td>{{ $data->username }}</td>
+                        <td>{{ $data->role }}</td>
+                        <td>{{ $data->status }}</td>
+                        <td class="text-center">
+                            <div class="d-inline-flex align-items-center">
+                                <a href="{{ route('user.edit', $data->id) }}" class="btn btn-warning btn-sm mr-2">
+                                    Edit
+                                </a>
+                                <a href="{{ route('user.delete', $data->id) }}" onclick="return confirm('Hapus Data {{ $data->username }}?')" class="btn btn-danger btn-sm">
+                                    Hapus
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center">DATA NOT FOUND</td>
+                        <td colspan="5" class="text-center">DATA NOT FOUND</td>
                     </tr>
                 @endforelse
             </tbody>

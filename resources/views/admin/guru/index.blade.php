@@ -18,8 +18,8 @@
             <a href="{{route('guru.create')}}" class="btn btn-primary">Tambah data</a>
         </div>
     </div>
-    <div class="table-responsive mx-auto rounded overflow-hidden" id="tableSiswa">
-        <table class="table mb-0 text-light" id="dataTable">
+    <div class="table-responsive mx-auto rounded" id="tableSiswa">
+        <table class="table mb-0 text-light text-nowrap" id="dataTable" style="min-width: 650px;">
             <thead class="table-dark">
                 <tr>
                     <th>NIP</th>
@@ -41,12 +41,13 @@
                                 alt="foto"
                                 width="100">
                         </td>
-                        <td>
-                            <a href="{{route('guru.edit', $data->id)}}" class="btn btn-warning">
+                        <td class="text-center">
+                            <div class="d-inline-flex align-items-center">
+                            <a href="{{route('guru.edit', $data->id)}}" class="btn btn-warning mr-2">
                                 Edit
                             </a>
                             <a href="{{route('guru.delete', $data->id)}}"
-                                onclick="return confirm('Hapus Data {{$data->namaGuru}}?')" class="btn btn-danger mx-3">
+                                onclick="return confirm('Hapus Data {{$data->namaGuru}}?')" class="btn btn-danger">
                                 Hapus
                             </a>
                         </td>
