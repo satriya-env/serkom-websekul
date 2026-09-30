@@ -1,198 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('temp')
+@section('title', 'Edit Data')
+@section('content')    
+    <div class="container-fluid bg-dark min-vh-100 py-5">
 
-<head>
+        <div class="card bg-dark text-white mx-auto w-75 border-secondary shadow">
+            <div class="card-body">
+                
+                {{-- Alert Notifikasi Sukses --}}
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+                {{-- Alert Error Validasi --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-    <title>Dashboard WebSchools - Form Sekolah</title>
+                <form class="user w-75 mx-auto my-4" action="{{ route('berita.update', $data->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
 
-    <!-- Custom fonts for this template-->
-    <link href="{{asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+                    <h3 class="text-center text-white mb-4">Edit Berita</h3>
 
-    <!-- Custom styles for this template-->
-    <link href="{{asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+                    {{-- Judul --}}
+                    <div class="form-group">
+                        <label for="judul" class="text-light">Judul</label>
+                        <input type="text" class="form-control" 
+                            id="judul" 
+                            name="judul" 
+                            placeholder="Masukkan Judul Berita"
+                            value="{{ old('judul', $data->judul) }}" required>
+                    </div>
 
-</head>
+                    {{-- Isi Berita (Diubah ke Textarea agar muat teks panjang) --}}
+                    <div class="form-group">
+                        <label for="isi" class="text-light">Isi Berita</label>
+                        <textarea class="form-control" 
+                            id="isi" 
+                            name="isi" 
+                            rows="5"
+                            placeholder="Masukkan Isi Berita" required>{{ old('isi', $data->isi) }}</textarea>
+                    </div>
 
-<body id="page-top" class="bg-dark">
+                    {{-- Status --}}
+                    <div class="form-group">
+                        <label for="status" class="text-light">Status</label>
+                        <select class="form-control" id="status" name="status" required>
+                            <option value="">-- Status --</option>
+                            <option value="Draf" {{ old('status', $data->status) == 'Draf' ? 'selected' : '' }}>Draf</option>
+                            <option value="Publish" {{ old('status', $data->status) == 'Publish' ? 'selected' : '' }}>Publish</option>
+                        </select>
+                    </div>
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+                    {{-- Tanggal --}}
+                    <div class="form-group">
+                        <label for="tanggal" class="text-light">Tanggal</label>
+                        <input type="date" class="form-control" 
+                            id="tanggal" 
+                            name="tanggal" 
+                            value="{{ old('tanggal', $data->tanggal) }}" required>
+                    </div>
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <nav class="navbar navbar-expand navbar-dark bg-dark topbar static-top shadow">
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3 text-white bg-dark">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-300 small">{{Auth::user()->username}}</span>
-                                <img class="img-profile rounded-circle" src="{{asset('assets/img/undraw_profile_2.svg')}}" height="50">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
+                    {{-- Input Gambar --}}
+                    <div class="form-group">
+                        <label for="gambar" class="text-light">Gambar Berita</label>
+                        
+                        {{-- Preview Gambar Lama --}}
+                        @if(!empty($data->gambar))
+                            <div class="mb-2">
+                                <img src="{{ Storage::url($data->gambar) }}" alt="Gambar Berita" height="100" class="img-thumbnail bg-dark border-secondary">
                             </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid bg-dark min-vh-100 py-5">
-
-                    <div class="card bg-dark text-white mx-auto w-75 border-secondary shadow">
-                        <div class="card-body">
-                            
-                            {{-- Alert Notifikasi Sukses --}}
-                            @if (session('success'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    {{ session('success') }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            @endif
-
-                            {{-- Alert Error Validasi --}}
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul class="mb-0">
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-
-                            <form class="user w-75 mx-auto my-4" action="{{ route('berita.update', $data->id) }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-
-                                <h3 class="text-center text-white mb-4">Edit Berita</h3>
-
-                                {{-- Judul --}}
-                                <div class="form-group">
-                                    <label for="judul" class="text-light">Judul</label>
-                                    <input type="text" class="form-control" 
-                                        id="judul" 
-                                        name="judul" 
-                                        placeholder="Masukkan Judul Berita"
-                                        value="{{ old('judul', $data->judul) }}" required>
-                                </div>
-
-                                {{-- Isi Berita (Diubah ke Textarea agar muat teks panjang) --}}
-                                <div class="form-group">
-                                    <label for="isi" class="text-light">Isi Berita</label>
-                                    <textarea class="form-control" 
-                                        id="isi" 
-                                        name="isi" 
-                                        rows="5"
-                                        placeholder="Masukkan Isi Berita" required>{{ old('isi', $data->isi) }}</textarea>
-                                </div>
-
-                                {{-- Status --}}
-                                <div class="form-group">
-                                    <label for="status" class="text-light">Status</label>
-                                    <select class="form-control" id="status" name="status" required>
-                                        <option value="">-- Status --</option>
-                                        <option value="Draf" {{ old('status', $data->status) == 'Draf' ? 'selected' : '' }}>Draf</option>
-                                        <option value="Publish" {{ old('status', $data->status) == 'Publish' ? 'selected' : '' }}>Publish</option>
-                                    </select>
-                                </div>
-
-                                {{-- Tanggal --}}
-                                <div class="form-group">
-                                    <label for="tanggal" class="text-light">Tanggal</label>
-                                    <input type="date" class="form-control" 
-                                        id="tanggal" 
-                                        name="tanggal" 
-                                        value="{{ old('tanggal', $data->tanggal) }}" required>
-                                </div>
-
-                                {{-- Input Gambar --}}
-                                <div class="form-group">
-                                    <label for="gambar" class="text-light">Gambar Berita</label>
-                                    
-                                    {{-- Preview Gambar Lama --}}
-                                    @if(!empty($data->gambar))
-                                        <div class="mb-2">
-                                            <img src="{{ Storage::url($data->gambar) }}" alt="Gambar Berita" height="100" class="img-thumbnail bg-dark border-secondary">
-                                        </div>
-                                    @endif
-                                    
-                                    <input type="file" class="form-control-file text-light" id="gambar" name="gambar" accept="image/*">
-                                    <small class="form-text text-muted">Biarkan kosong jika tidak ingin mengganti gambar.</small>
-                                </div>
-
-                                <hr class="border-secondary">
-
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">
-                                        Simpan Data
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                        @endif
+                        
+                        <input type="file" class="form-control-file text-light" id="gambar" name="gambar" accept="image/*">
+                        <small class="form-text text-muted">Biarkan kosong jika tidak ingin mengganti gambar.</small>
                     </div>
 
-                </div>
+                    <hr class="border-secondary">
 
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Simpan Data
+                        </button>
+                    </div>
+                </form>
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-dark">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto text-gray-500">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
         </div>
-        <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="{{asset('assets/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{{asset('assets/js/sb-admin-2.min.js')}}"></script>
-
-</body>
-
-</html>
+@endsection

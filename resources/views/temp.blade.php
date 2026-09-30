@@ -41,7 +41,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/')}}">
+                <a class="nav-link" href="{{ url('/dashboard')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -134,8 +134,12 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#" data-toggle="modal">
+                                <i class="fas fa-pencil-alt fa-sm fa-fw my-2 text-gray-400"></i>
+                                Edit Profil
+                            </a>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw my-2 text-gray-400"></i>
                                 Logout
                             </a>
                         </div>

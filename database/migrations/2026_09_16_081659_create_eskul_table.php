@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('jadwalLatihan', 40);
             $table->text('deskripsi');
             $table->string('gambar', 100);
+            $table->foreignId('idGuru')->references('id')->on('guru')
+                    ->onUpdate('cascade')
+                    ->onDelete('restrict');
             $table->timestamps();
         });
     }

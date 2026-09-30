@@ -13,11 +13,23 @@
 </style>
 
 {{-- CONTENT --}}
-    <div class="row">
-        <div class="col-lg-6 my-4">
-            <a href="{{route('berita.create')}}" class="btn btn-primary">Tambah data</a>
+    <div class="row align-items-center mb-4">
+        <div class="col-md-6 col-lg-4 my-2">
+            <a href="{{ route('berita.create') }}" class="btn btn-primary">Tambah data</a>
+        </div>
+
+        <div class="col-md-6 col-lg-8 my-2">
+            <form action="{{ route('berita.index') }}" method="GET" class="form-inline justify-content-md-end">
+                <div class="input-group w-100" style="max-width: 400px;">
+                    <input type="text" name="search" class="form-control" placeholder="Cari judul atau isi berita..." value="{{ request('search') }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Cari</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+
     @foreach ($data as $item)
         <div class="card shadow mb-4 border-0" style="background-color: #2c2c2c">
             <div class="p-3">
@@ -27,14 +39,14 @@
                     </div>
                     
                     <div class="col-md-5 col-lg-6">
-                        <p class="my-2">{{ $item->user->username }}</p>
+                        <p class="my-2 text-muted">{{ $item->user->username }}</p>
                         <h4 class="font-weight-bold my-2 text-light">{{ $item->judul }}</h4>
                         <p class="small mb-4 text-grey-200">{{ $item->status }} | {{ $item->tanggal}}</p>
                         <p class="mb-0 text-light">{{ $item->isi }}</p>
                     </div>
                     
                     <div class="col-md-3 col-lg-3 text-md-right mt-3 mt-md-0 d-flex justify-content-md-end align-items-center">
-                        <a href="{{ route('berita.edit', $item->id) }}" class="btn btn-warning btn-sm mr-2"></i> Edit</a>
+                        <a href="{{ route('berita.edit', $item->id) }}" class="btn btn-warning btn-sm mr-2">Edit</a>
                         <a href="{{ route('berita.delete', $item->id)}}" class="btn btn-danger btn-sm"
                             onclick="return confirm('Hapus Data {{$item->judul}}?')">Hapus</a>
                     </div>
@@ -42,5 +54,4 @@
             </div>
         </div>
     @endforeach
-    
 @endsection

@@ -22,7 +22,8 @@ use Illuminate\Support\Facades\Route;
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
         // DASHBOARD
-            Route::get('/', [dashboardController::class, 'index'])->name('dashboard');
+            Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
+            // EDIT PROFIL USER
 
         // MENU  DATA USER
             //READ
@@ -107,5 +108,3 @@ use Illuminate\Support\Facades\Route;
             // DELETE
             Route::get('/berita/delete/{id}', [BeritaController::class, 'delete'])->name('berita.delete'); 
     });
-
-        

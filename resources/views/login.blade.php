@@ -44,7 +44,6 @@
 
 </head>
 
-<!-- Perbaikan 1: Ganti bg-image menjadi bg-custom-image agar CSS background berjalan -->
 <body class="bg-custom-image min-vh-100 d-flex align-items-center justify-content-center">
 
     <div class="container">
@@ -58,7 +57,7 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 mb-4 text-dark">Welcome Back!</h1>
+                                        <h1 class="h4 mb-4 text-dark">Selamat Datang</h1>
                                     </div>
 
                                     {{-- FORM LOGIN --}}

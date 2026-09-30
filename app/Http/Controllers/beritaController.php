@@ -11,10 +11,19 @@ class BeritaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Berita::with('user')->latest()->get();
-        return view('admin.berita.index', compact('data'));
+        // $data = Berita::with('user')->latest()->get();
+        $search = $request->input('search');
+        
+        $data = Berita::when($search, function ($query, $search) {
+            return $query->where(function($q) use ($search) {
+                $q->where('judul', 'like', '%' . $search . '%')
+                ->orWhere('isi', 'like', '%' . $search . '%');
+            });
+        })->latest()->get();
+
+        return view('admin.berita.index', compact('data', 'search'));
     }
 
     /**
