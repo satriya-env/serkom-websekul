@@ -51,7 +51,11 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
+<<<<<<< HEAD
                 <!-- Nav Item - User -->
+=======
+                <!-- Nav Item - Dashboard -->
+>>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
                 <li class="nav-item">
                     <a class="nav-link" href="/user">
                         <i class="fas fa-fw fa-user"></i>
@@ -77,6 +81,7 @@
                 </div>
             </li>
 
+<<<<<<< HEAD
 
             <!-- Nav Item - Eskul -->
             <li class="nav-item">
@@ -86,6 +91,8 @@
                 </a>
             </li>
             
+=======
+>>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
             <!-- Nav Item - Informasi -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInformasi"
@@ -159,7 +166,11 @@
             </nav>
 
             <!-- Begin Page Content -->
+<<<<<<< HEAD
             <div class="container-fluid bg-dark min-vh-100 pt-3">
+=======
+            <div class="container-fluid bg-dark min-vh-100 pt-3 ">
+>>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
 
                 <!-- Content Row -->
                 @yield('content')

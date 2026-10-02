@@ -61,7 +61,11 @@
                                     </div>
 
                                     {{-- FORM LOGIN --}}
+<<<<<<< HEAD
                                     <form class="user" method="POST" action="{{route('login')}}">
+=======
+                                    <form class="user" method="POST" action="/login">
+>>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
                                         @csrf
                                         <div class="form-group">
                                             <input class="form-control form-control-user" aria-describedby="emailHelp"

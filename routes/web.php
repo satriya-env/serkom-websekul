@@ -5,16 +5,22 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\galeriController;
 use App\Http\Controllers\guruController;
+<<<<<<< HEAD
 use App\Http\Controllers\homeController;
+=======
+>>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
 use App\Http\Controllers\profilController;
 use App\Http\Controllers\siswaController;
 use App\Http\Controllers\userController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
+<<<<<<< HEAD
 // PUBLIC PAGE
     Route::get('/', [homeController::class, 'index'])->name('home.index');
 
+=======
+>>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
 // ADMIN SIDE
     // LOGIN
     Route::middleware('guest')->group(function () {

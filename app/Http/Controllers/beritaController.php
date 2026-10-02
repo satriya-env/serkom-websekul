@@ -16,9 +16,17 @@ class BeritaController extends Controller
         // $data = Berita::with('user')->latest()->get();
         $search = $request->input('search');
         
+<<<<<<< HEAD
         $data = Berita::where(function($q) use ($search) {
             $q->where('judul', 'like', '%' . $search . '%')
             ->orWhere('isi', 'like', '%' . $search . '%');
+=======
+        $data = Berita::when($search, function ($query, $search) {
+            return $query->where(function($q) use ($search) {
+                $q->where('judul', 'like', '%' . $search . '%')
+                ->orWhere('isi', 'like', '%' . $search . '%');
+            });
+>>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
         })->latest()->get();
 
         return view('admin.berita.index', compact('data', 'search'));

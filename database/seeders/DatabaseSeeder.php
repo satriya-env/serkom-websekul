@@ -55,7 +55,11 @@ class DatabaseSeeder extends Seeder
         //TABLE SISWA
             Siswa::create([
                 'nisn' => '11111111',
+<<<<<<< HEAD
                 'namaSiswa' => 'adul',
+=======
+                'namaSiswa' => 'adul holic',
+>>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
                 'jenisKelamin' => 'Laki-laki',
                 'tahunMasuk' => 2024,
             ]);
@@ -72,17 +76,28 @@ class DatabaseSeeder extends Seeder
             Galeri::create([
                 'judul'=> 'Fasilitas Lab',
                 'keterangan'=> 'Fasilitas Lab',
+<<<<<<< HEAD
                 'file'=> 'galeri/sample.png',
+=======
+                'file'=> 'galeri/sample.jpg',
+>>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
                 'kategori'=> 'Foto',
                 'tanggal'=> '2026-09-26',
             ]);
 
         //TABLE BERITA
             Berita::create([
+<<<<<<< HEAD
                 'judul' => 'dataDummy',
                 'isi' => 'data dummy isi berita',
                 'tanggal' => '2026-09-26',
                 'gambar' => 'berita/sample.jpg',
+=======
+                'judul' => 'dummyData',
+                'isi' => 'dummyDatadummy DatadummyData dummyData',
+                'tanggal' => '2026-09-26',
+                'gambar' => 'berita/sample.png',
+>>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
                 'status' => 'Draf',
                 'idUser' => $user->id,
             ]);

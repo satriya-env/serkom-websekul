@@ -21,6 +21,7 @@
 
     @stack('style')
     <style>
+<<<<<<< HEAD
         .topbar.navbar-floating {
             position: fixed !important;
             top: 20px !important;
@@ -77,10 +78,43 @@
     <nav class="navbar navbar-expand navbar-light topbar navbar-floating bg-gradient-primary text-center position-absolute" style="top: 20px; width: 90%; border-radius: 30px; z-index: 10;">
         <div class="row mx-3 align-items-center">
             <img src="{{asset('assets/img/logo.png')}}" alt="Logo" style="height: 45px">
+=======
+    .topbar.navbar-floating {
+        position: fixed !important;
+        top: 20px !important;
+        
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        
+        width: 90% !important;
+        max-width: 1100px !important;
+        height: 4.375rem;
+        
+        border-radius: 25px !important;
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15) !important;
+        backdrop-filter: blur(10px);
+        
+        z-index: 1040 !important;
+    }
+
+    #content {
+        padding-top: 100px !important;
+    }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand navbar-light topbar navbar-floating bg-gradient-primary text-center">
+        <div class="row">
+            <div class="row mx-5 align-items-center">
+                <img src="{{asset('storage/profil/logo/sample.png')}}" alt="" style="height: 45px">
+                <span class="ml-3 text-light">SMK YPC TASIKMALAYA</span>
+            </div>
+>>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
         </div>
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
+<<<<<<< HEAD
             <li class="nav-item">
                 <a href="#" class="nav-link text-white">
                     <span>Beranda</span>
@@ -227,6 +261,11 @@
     </div>
     
 
+=======
+        </ul>
+    </nav>
+
+>>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
 <!-- Bootstrap core JavaScript-->
     <script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
