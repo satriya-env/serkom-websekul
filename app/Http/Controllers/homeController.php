@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\Eskul;
 use Illuminate\Http\Request;
 
 class homeController extends Controller
@@ -14,6 +15,8 @@ class homeController extends Controller
                     ->orderBy('tanggal', 'desc')
                     ->take(3)->get();
 
-        return view('public.landing', compact('berita'));
+        $eskul = Eskul::with('guru')->get();
+
+        return view('public.home', compact('berita', 'eskul'));
     }
 }

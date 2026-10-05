@@ -15,6 +15,22 @@
 @section('title', 'Dashboard')
 
 @section('content')
+    {{-- HEADER: SAPAAN + TOMBOL --}}
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 mt-3">
+        <div class="mb-2 mb-sm-0">
+            <h2 class="h3 text-white mb-0">
+                <span id="sapaan">Halo</span>, {{ auth()->user()->username }}!
+            </h2>
+            <small class="text-white-50" id="tanggal"></small>
+        </div>
+
+        <a href="{{ route('public.home') }}">
+            <div class="btn btn-primary">
+                Pergi ke Landing Page
+            </div>
+        </a>
+    </div>
+
     {{-- SECTION CARDS --}}
     <div class="row g-3 mb-4">
         {{-- TOTAL USER --}}
@@ -112,8 +128,8 @@
                                 <span class="badge bg-secondary mb-2"> {{ $item->type }}</span>
 
                                 <!-- Nama / Judul -->
-                                <h5 class="card-title h6 text-truncate mb-2" title="{{ $item->namaSiswa ?? $item->username ?? $item->namaGuru ?? $item->judul }}">
-                                    {{ $item->namaSiswa ?? $item->username ?? $item->namaGuru ?? $item->judul }}
+                                <h5 class="card-title h6 text-truncate mb-2" title="{{ $item->namaSiswa ?? $item->username ?? $item->namaGuru }}">
+                                    {{ $item->namaSiswa ?? $item->username ?? $item->namaGuru }}
                                 </h5>
                             </div>
 

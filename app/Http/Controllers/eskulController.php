@@ -14,9 +14,12 @@ class eskulController extends Controller
     public function index(Request $request)
     {
         //
-        // $search = $request->input('search');
+        $search = $request->input('search');
+        $data = Eskul::where(function($q) use ($search){
+            $q->where('namaEskul', 'like', '%' . $search . '%')
+                ->orwhere('jadwalLatihan', 'like', '%' . $search . '%');
+        })->latest()->get();
 
-        $data = Eskul::all();
         return view('admin.eskul.index', compact('data'));
     }
 
@@ -51,7 +54,7 @@ class eskulController extends Controller
         $valid['idGuru'] = auth()->id();
         Eskul::create($valid);
 
-        return redirect()->route('eskul.index')>with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('eskul.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**

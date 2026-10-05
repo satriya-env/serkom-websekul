@@ -37,18 +37,10 @@ class dashboardController extends Controller
                 $item->route = route('guru.index');
                 return $item;
             });
-            // TABEL BERITA
-            $berita = Berita::latest()->take(5)->get()->map(function ($item){
-                $item->type = 'Berita';
-                $item->route = route('berita.index');
-                return $item;
-            });
-            // TABEL GALERI
 
         $recent =  $user->concat($siswa)
                         ->concat($guru)
-                        ->concat($berita)
-                        ->sortByDesc('created_at')
+                        ->sortByDesc('updated_at')
                         ->take(5);
 
         // DATA YANG DITAMPILKAN DI DASHBOARD

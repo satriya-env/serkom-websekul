@@ -51,11 +51,7 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
-<<<<<<< HEAD
                 <!-- Nav Item - User -->
-=======
-                <!-- Nav Item - Dashboard -->
->>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
                 <li class="nav-item">
                     <a class="nav-link" href="/user">
                         <i class="fas fa-fw fa-user"></i>
@@ -81,18 +77,14 @@
                 </div>
             </li>
 
-<<<<<<< HEAD
-
             <!-- Nav Item - Eskul -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('eskul.index')}}">
                     <i class="fas fa-fw fa-shapes"></i>
                     <span>Ekstrakulikuller</span>
                 </a>
             </li>
             
-=======
->>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
             <!-- Nav Item - Informasi -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInformasi"
@@ -110,10 +102,8 @@
             </li>
             
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <hr class="sidebar-divider mb-3">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
 
             {{-- SidebarToggle --}}
             <div class="text-center d-none d-md-inline">
@@ -145,15 +135,11 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-300 small">{{Auth::user()->username}}</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-300 small">{{Auth::user()?->username}}</span>
                             <img class="img-profile rounded-circle" src="{{asset('assets/img/undraw_profile_2.svg')}}" height="50">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#" data-toggle="modal">
-                                <i class="fas fa-pencil-alt fa-sm fa-fw my-2 text-gray-400"></i>
-                                Edit Profil
-                            </a>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw my-2 text-gray-400"></i>
                                 Logout
@@ -166,11 +152,7 @@
             </nav>
 
             <!-- Begin Page Content -->
-<<<<<<< HEAD
             <div class="container-fluid bg-dark min-vh-100 pt-3">
-=======
-            <div class="container-fluid bg-dark min-vh-100 pt-3 ">
->>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
 
                 <!-- Content Row -->
                 @yield('content')

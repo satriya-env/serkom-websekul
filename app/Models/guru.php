@@ -14,4 +14,8 @@ class Guru extends Model
         'mapel',
         'foto',
     ];
+
+    public function guru(){
+        return $this->hasMany(Eskul::class, 'idGuru', 'id');
+    }
 }

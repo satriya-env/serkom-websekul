@@ -3,24 +3,45 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\eskulController;
 use App\Http\Controllers\galeriController;
 use App\Http\Controllers\guruController;
-<<<<<<< HEAD
 use App\Http\Controllers\homeController;
-=======
->>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
 use App\Http\Controllers\profilController;
 use App\Http\Controllers\siswaController;
 use App\Http\Controllers\userController;
+use App\Models\Eskul;
+use App\Models\Galeri;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-<<<<<<< HEAD
 // PUBLIC PAGE
-    Route::get('/', [homeController::class, 'index'])->name('home.index');
+    // BERANDA
+    Route::get('/', [homeController::class, 'index'])->name('public.home');
+    
+    // PROFIL
+    Route::get('/profilsekolah', function(){
+        return view('public.profil');
+    })->name('public.profil');
+    // JURUSAN
+    Route::get('/jurusan', function(){
+        return view('public.jurusan');
+    })->name('public.jurusan');
 
-=======
->>>>>>> a59fc002f1f20ea9630573e2905760aca48134cf
+    // ESKUL
+    Route::get('/ekstrakulikuler', function(){
+        $data = Eskul::all();
+        return view('public.eskul', compact('data'));
+    } 
+    )->name('public.eskul');
+
+    // GALERI
+    Route::get('/galerisekolah', function(){
+        $galeri = Galeri::all();
+        return view('public.galeri', compact('galeri'));
+    } 
+    )->name('public.galeri');
+
 // ADMIN SIDE
     // LOGIN
     Route::middleware('guest')->group(function () {
@@ -116,5 +137,9 @@ use Illuminate\Support\Facades\Route;
             Route::put('/berita/update/{id}', [BeritaController::class, 'update'])->name('berita.update');
 
             // DELETE
-            Route::get('/berita/delete/{id}', [BeritaController::class, 'delete'])->name('berita.delete'); 
+            Route::get('/berita/delete/{id}', [BeritaController::class, 'delete'])->name('berita.delete');
+        
+        // ESKUL
+            Route::resource('eskul', eskulController::class)->except(['destroy']);
+            Route::get('/eskul/delete/{id}', [eskulController::class, 'delete'])->name('eskul.delete');
     });
