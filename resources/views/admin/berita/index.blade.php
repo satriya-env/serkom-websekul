@@ -41,6 +41,7 @@
                     <div class="col-md-5 col-lg-6">
                         <p class="my-2 text-muted">{{ $item->user->username }}</p>
                         <h4 class="font-weight-bold my-2 text-light">{{ $item->judul }}</h4>
+                        <span class="small mb-1 text-light">{{ $item->slug }}</span>
                         <p class="small mb-4 text-grey-200">{{ $item->status }} | {{ $item->tanggal}}</p>
                         <p class="mb-0 text-light">{{ $item->isi }}</p>
                     </div>

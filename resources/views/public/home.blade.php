@@ -5,6 +5,8 @@
 @push('style')
 <style>
     /* SLIDER */
+        :root { --nav-h: 80px; } /* sesuaikan dengan tinggi navbar Anda */
+
         #slide { margin: 0; padding: 0; width: 100%; }
         #slide .carousel-inner { width: 100%; }
         .carousel-item { position: relative; }
@@ -28,7 +30,8 @@
             right: 8%;
             z-index: 2;
             text-align: left;
-            padding-top: 90px;
+            padding-top: calc(var(--nav-h) + 20px);
+            padding-bottom: 50px;
         }
         .caption-inner { max-width: 480px; }
         .caption-inner h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
@@ -41,14 +44,18 @@
             .caption-inner { max-width: 100%; }
         }
         @media (max-width: 575.98px) {
-            .carousel-item img { height: 480px; }
+            :root { --nav-h: 64px; } 
+            .carousel-item img { height: 520px; }
             .carousel-caption {
                 left: 6%;
                 right: 6%;
-                padding-top: 60px;
-                align-items: flex-start !important;
+                padding-bottom: 40px;
             }
             .caption-inner span { font-size: .9rem; }
+            a.carousel-control-next, a.carousel-control-prev{
+                display: none;
+                visibility: hidden
+            }
         }
 
     /* SAMBUTAN */
@@ -60,6 +67,14 @@
         @media (max-width: 767.98px) {
             .sambutan-img { height: 300px; }
             .sambutan-body { text-align: center; }
+        }
+
+        #cardsambutan{
+            transition: transform .2s ease, box-shadow .3s ease;
+        }
+        #cardsambutan:hover{
+            transform: scale(1.01);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
         }
 
     /* PROFIL */
@@ -102,7 +117,7 @@
         }
 
         .feature-card:hover .feature-icon {
-            transform: scale(1.1);
+            transform: scale(1);
             box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
         }
 
@@ -111,7 +126,7 @@
         }
 
         .feature-card:hover h5 {
-            color: #007bff !important; /* sesuaikan dengan warna primary tema Anda */
+            /* color: #007bff !important; */
         }
 
     /* PARTNERSHIP */
@@ -291,9 +306,9 @@
     </div>
 
     {{-- SAMBUTAN KEPALA SEKOLAH --}}
-    <section class="container py-5 my-lg-4">
+    <div class="container py-5 my-lg-4">
         <div class="mx-auto" style="max-width: 1000px;">
-            <div class="card overflow-hidden">
+            <div class="card overflow-hidden" id="cardsambutan">
                 <div class="row no-gutters align-items-stretch">
                     <div class="col-md-4 col-12 bg-light">
                         <img src="{{ asset('assets/img/kepala.jpg') }}" alt="Foto Kepala Sekolah" class="sambutan-img w-100">
@@ -316,7 +331,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     {{-- PROFIL SEKOLAH --}}
     <div class="profil-section py-5" style="background-image: url('{{ asset('assets/img/banner.png') }}');">
@@ -464,41 +479,59 @@
             ],
         ];
     @endphp
-
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h3 class="font-weight-bold text-primary">Program Keahlian</h3>
-            <span class="mb-5">Pilihan Program Keahlian yang ada di sekolah kami</span>
-        </div>
-
-        <div class="program-wrap">
-            <button type="button" class="program-nav prev" aria-label="Sebelumnya">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-
-            <div id="programScroll" class="d-flex flex-nowrap scroll-horizontal pt-2 pb-4 px-1">
-                @foreach ($jurusan as $item)
-                    <div class="card program-card flex-shrink-0 border-0 {{ $loop->last ? '' : 'mr-3' }}">
-                        <div class="program-media">
-                            <img src="{{ $item['gambar'] }}" alt="{{ $item['nama'] }}">
-                            <span class="program-badge">
-                                <i class="fas {{ $item['icon'] }}"></i>
-                            </span>
+        {{-- PENGANTAR --}}
+    <div class="container pt-5">
+        <div class="m-0">
+            <div class="row">
+                <img src="{{ asset('assets/img/jurusan.png')}}" style="height: 250px">
+                <div class="col">
+                    <span class="font-weight-bold text-warning">PILIHAN KOMPETENSI</span>
+                    <h3 class="font-weight-bold text-primary">Program Keahlian</h3>
+                    <p class="">
+                        Kami menghadirkan program keahlian berbasis industri yang dirancang untuk mencetak lulusan kompeten, siap kerja, dan adaptif di era digital. 
+                        Pembelajaran difokuskan pada praktik, teknologi terkini, serta penguatan keterampilan profesional.
+                    </p>
+                    <a href="{{route('public.jurusan')}}">
+                        <div class="btn btn-primary">
+                            Lihat Semua
                         </div>
-                        <div class="card-body">
-                            <h6 class="program-title font-weight-bold text-dark">{{ $item['nama'] }}</h6>
-                            <p class="program-desc mb-0">{{ $item['deskripsi'] }}</p>
-                        </div>
-                    </div>
-                @endforeach
+                    </a>
+                </div>
             </div>
-
-            <button type="button" class="program-nav next" aria-label="Berikutnya">
-                <i class="fas fa-chevron-right"></i>
-            </button>
         </div>
     </div>
+        {{-- SLIDER --}}
+    <div class="container-fluid py-5 m-0" style="background: #f5f5f5">
+        <div class="container">
+            <div class="program-wrap">
+                <button type="button" class="program-nav prev" aria-label="Sebelumnya">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
 
+                <div id="programScroll" class="d-flex flex-nowrap scroll-horizontal pt-2 pb-4 px-1">
+                    @foreach ($jurusan as $item)
+                        <div class="card program-card flex-shrink-0 border-0 {{ $loop->last ? '' : 'mr-3' }}">
+                            <div class="program-media">
+                                <img src="{{ $item['gambar'] }}" alt="{{ $item['nama'] }}">
+                                <span class="program-badge">
+                                    <i class="fas {{ $item['icon'] }}"></i>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="program-title font-weight-bold text-dark">{{ $item['nama'] }}</h6>
+                                <p class="program-desc mb-0">{{ $item['deskripsi'] }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <button type="button" class="program-nav next" aria-label="Berikutnya">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+        
     {{-- ESKUL --}}
     <div class="container py-5">
         <div class="text-center mb-5">
@@ -552,6 +585,7 @@
                     <div class="card berita-card h-100">
                         <img src="{{ asset('storage/' . $data->gambar) }}" class="card-img-top" alt="{{ $data->judul }}">
                         <div class="card-body p-4">
+                            <span class="small">{{$data->tanggal}}</span>
                             <h5 class="card-title font-weight-bold">{{ $data->judul }}</h5>
                             <p class="card-text text-muted text-break">{{ $data->isi }}</p>
                         </div>

@@ -67,6 +67,11 @@
             position: relative;
             text-align: center;
             padding: 0 15px;
+            transition: transform .18s ease;
+        }
+
+        .tl-h-item:hover {
+            transform: scale(1.05)
         }
 
         /* dot */

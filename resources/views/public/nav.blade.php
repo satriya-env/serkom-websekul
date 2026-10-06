@@ -138,6 +138,9 @@
                 <li class="nav-item">
                     <a href="{{route('public.profil')}}" class="nav-link text-white">Profil</a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('public.berita')}}" class="nav-link text-white">Berita</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-white" href="#" id="programDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

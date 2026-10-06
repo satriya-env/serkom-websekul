@@ -23,6 +23,12 @@ use Illuminate\Support\Facades\Route;
     Route::get('/profilsekolah', function(){
         return view('public.profil');
     })->name('public.profil');
+
+    // BERITA   
+    Route::get('/artikel', [homeController::class, 'berita'])-> name('public.berita');
+        // DETAIL BERITA
+        Route::get('/artikel/{slug}', [homeController::class, 'detail'])->name('detail.berita');
+
     // JURUSAN
     Route::get('/jurusan', function(){
         return view('public.jurusan');

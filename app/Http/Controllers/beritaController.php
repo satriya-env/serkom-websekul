@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Berita;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class BeritaController extends Controller
 {
@@ -37,20 +38,29 @@ class BeritaController extends Controller
      */
     public function store(Request $request)
     {
+        $slug = Str::slug($request->judul);
+        $request->merge(['slug' => $slug]);
+
         $valid = $request->validate([
-            'judul'   => 'required|string|max:50',
-            'isi'     => 'required|string',
+            'judul' => 'required|string|max:50',
+            'slug' => 'required|unique:berita,slug',
+            'isi' => 'required|string',
             'tanggal' => 'required|date',
-            'gambar'  => 'required|image|mimes:jpeg,png,jpg|max:5120',
-            'status'  => 'required|in:Draf,Publish', // Diubah ke huruf kecil sesuai ERD
+            'gambar' => 'required|image|mimes:jpeg,png,jpg|max:5120',
+            'status' => 'required|in:Draf,Publish',
+        ],[
+            'judul.required' => 'Judul harus diisi',
+            'judul.max' => 'Maksimal Judul adalah 50 karakter',
+            'isi.required' => 'Isi berita masih kosong',
+            'tanggal.required' => 'Tanggal harus diisi',
+            'tanggal.date' => 'Tanggal tidak valid',
+            'gambar.image' => 'File gambar tidak valid',
+            'gambar.mimes' => 'Format gambar harus: .jpeg, .png, .jpg',
+            'gambar.max' => 'Ukuran gambar maksimal 5MB',
+            'slug.unique' => 'Judul sudah digunakan.'
         ]);
 
-        if ($request->hasFile('gambar')) {
-            $path = $request->file('gambar')->store('berita', 'public');
-            $valid['gambar'] = $path;
-        }
-
-        // Isi idUser secara otomatis berdasarkan ID user yang login
+        $valid['gambar'] = $request->file('gambar')?->store('berita', 'public');
         $valid['idUser'] = auth()->id();
         
         Berita::create($valid);
@@ -91,10 +101,8 @@ class BeritaController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama dari storage
-            if ($data->gambar) {
-                Storage::disk('public')->delete($data->gambar);
-            }
+            if ($data->gambar) Storage::disk('public')->delete($data->gambar);
+            
             $valid['gambar'] = $request->file('gambar')->store('berita', 'public');
         }
 

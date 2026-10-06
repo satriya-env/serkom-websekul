@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
                 'nip' => '123456789012345',
                 'namaGuru' => 'Alamsyah Firdaus',
                 'mapel' => 'Kejuruan PPLG',
-                'foto' => 'guru/foto/sample.jpg',
+                'foto' => 'guru/king.jpg',
             ]);
 
         //TABLE GALERI
@@ -79,11 +79,12 @@ class DatabaseSeeder extends Seeder
 
         //TABLE BERITA
             Berita::create([
-                'judul' => 'dataDummy',
-                'isi' => 'data dummy isi berita',
-                'tanggal' => '2026-09-26',
-                'gambar' => 'berita/sample.jpg',
-                'status' => 'Draf',
+                'judul' => 'Pelaksanaan Sholat Dzuhur',
+                'slug' => 'pelaksanaan-sholat-dzuhur',
+                'isi' => 'Kini seluruh siswa melaksanakan sholat dzuhur di RPS secara berjamaah',
+                'tanggal' => now()->subDays(1)->toDateString(),
+                'gambar' => 'berita/sample.png',
+                'status' => 'Publish',
                 'idUser' => $user->id,
             ]);
         //TABLE ESKUL
