@@ -34,11 +34,14 @@
             background: rgba(0, 0, 0, 0.4);
             z-index: 0;
         }
-       
 
         .container {
             position: relative;
             z-index: 1;
+        }
+
+        #logo{
+            height: 60px;
         }
     </style>
 
@@ -51,13 +54,13 @@
         <div class="row justify-content-center w-100">
 
             <div class="col-xl-6 col-lg-7 col-md-9">
-                <div class="card o-hidden border-0 shadow-lg my-auto" style="background-color:rgba(255, 255, 255, 0.685)">
+                <div class="card o-hidden border-0 shadow-lg" style="background-color:rgba(100, 100, 100, 0.7)">
                     <div class="card-body p-0">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 mb-4 text-dark">Selamat Datang</h1>
+                                    <div class="text-center mb-5">
+                                        <img src="{{ asset('assets/img/logo.png') }}" alt="" id="logo">
                                     </div>
 
                                     {{-- FORM LOGIN --}}

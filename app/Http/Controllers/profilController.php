@@ -15,7 +15,7 @@ class profilController extends Controller
     {
         //
         $data = Profil::first();
-        return view('admin.profilSekolah.index', compact('data'));
+        return view('admin.profil.index', compact('data'));
     }
 
     /**
@@ -57,57 +57,76 @@ class profilController extends Controller
      */
     public function update(Request $request)
     {
-        //
-        $request->validate([
-            'namaSekolah'   => 'required|string|max:40',
-            'kepalaSekolah' => 'required|string|max:40',
-            'foto'          => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
-            'logo'          => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
-            'npsn'          => 'required|string|max:10',
-            'alamat'        => 'required|string',
-            'kontak'        => 'required|string|max:15',
-            'visiMisi'      => 'required|string',
-            'tahunBerdiri'  => 'required|numeric|digits:4',
-            'deskripsi'     => 'required|string',
-        ]);
+        $data = Profil::firstOrNew();
+        $imageRule = $data->exists ? 'nullable' : 'required' . '|image|mimes:jpeg,png,jpg|max:10240';
 
-        $data = profil::first() ?? new profil();
+        // 1. Definisikan pemetaan aturan validasi dan penanganan berkas per section
+        $sections = [
+            'sambutan' => [
+                'rules' => ['kepalaSekolah' => 'required|string|max:40', 'sambutan' => 'required|string', 'fotoKepala' => $imageRule],
+                'fields' => ['kepalaSekolah', 'sambutan'],
+                'files' => ['fotoKepala' => 'profil/kepala'],
+            ],
+            'data-sekolah' => [
+                'rules' => ['namaSekolah' => 'required|string|max:40', 'npsn' => 'required|string|max:10', 'tahunBerdiri' => 'required|digits:4|integer', 'alamat' => 'required|string', 'kontak' => 'required|string|max:15'],
+                'fields' => ['namaSekolah', 'npsn', 'tahunBerdiri', 'alamat', 'kontak'],
+            ],
+            'sejarah' => [
+                'rules' => ['sejarah' => 'required|string'],
+                'fields' => ['sejarah'],
+            ],
+            'visi-misi' => [
+                'rules' => ['visi' => 'required|string', 'misi' => 'required|string'],
+                'fields' => ['visi', 'misi'],
+            ],
+            'lainnya' => [
+                'rules' => ['deskripsi' => 'required|string', 'logoSekolah' => $imageRule, 'fotoSekolah' => $imageRule],
+                'fields' => ['deskripsi'],
+                'files' => ['logoSekolah' => 'profil/logo', 'fotoSekolah' => 'profil/sekolah'],
+            ],
+        ];
 
-        // Olah gambar jika ada file baru di-upload
-        if ($request->hasFile('foto')) {
-            // Hapus logo lama dari folder storage jika ada
-            if ($data->foto && Storage::disk('public')->exists($data->foto)) {
-                Storage::disk('public')->delete($data->logo);
-            }
+        $sectionKey = $request->section;
 
-            // Simpan logo baru dan update properti $data->logo
-            $path = $request->file('foto')->store('profil/foto', 'public');
-            $data->foto = $path;
+        if (!isset($sections[$sectionKey])) {
+            return redirect()->back()->withErrors(['Section tidak valid.']);
         }
 
-        if ($request->hasFile('logo')) {
-            // Hapus logo lama dari folder storage jika ada
-            if ($data->logo && Storage::disk('public')->exists($data->logo)) {
-                Storage::disk('public')->delete($data->logo);
+        $config = $sections[$sectionKey];
+
+        // 2. Eksekusi validasi
+        $request->validate($config['rules']);
+
+        // 3. Proses pengunggahan berkas secara otomatis (jika ada)
+        foreach ($config['files'] ?? [] as $fileField => $path) {
+            if ($request->hasFile($fileField)) {
+                $data->{$fileField} = $this->uploadImage($request, $fileField, $path, $data->{$fileField});
             }
-
-            // Simpan logo baru dan update properti $data->logo
-            $path = $request->file('logo')->store('profil/logo', 'public');
-            $data->logo = $path;
         }
-        
-        $data->namaSekolah   = $request->namaSekolah;
-        $data->kepalaSekolah = $request->kepalaSekolah;
-        $data->npsn          = $request->npsn;
-        $data->alamat        = $request->alamat;
-        $data->kontak        = $request->kontak;
-        $data->visiMisi      = $request->visiMisi;
-        $data->tahunBerdiri  = $request->tahunBerdiri;
-        $data->deskripsi     = $request->deskripsi;
-        $data->save();
 
-        return redirect()->route('profil.index')->with('success', 'Data berhasil diperbarui');
+        // 4. Isi dan simpan data
+        $data->fill($request->only($config['fields']))->save();
+
+        return redirect()->back()->with('success', 'Data profil berhasil diperbarui');
     }
+
+/**
+ * Helper untuk mengunggah gambar baru & menghapus gambar lama
+ */
+private function uploadImage(Request $request, string $fieldName, string $folder, ?string $oldPath): ?string
+{
+    if (!$request->hasFile($fieldName)) {
+        return $oldPath;
+    }
+
+    // Hapus file lama dari storage jika ada
+    if ($oldPath && Storage::disk('public')->exists($oldPath)) {
+        Storage::disk('public')->delete($oldPath);
+    }
+
+    // Simpan file baru
+    return $request->file($fieldName)->store($folder, 'public');
+}
 
     /**
      * Remove the specified resource from storage.

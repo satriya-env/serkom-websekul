@@ -1,151 +1,79 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BeritaController;
-use App\Http\Controllers\dashboardController;
-use App\Http\Controllers\eskulController;
-use App\Http\Controllers\galeriController;
-use App\Http\Controllers\guruController;
-use App\Http\Controllers\homeController;
-use App\Http\Controllers\profilController;
-use App\Http\Controllers\siswaController;
-use App\Http\Controllers\userController;
-use App\Models\Eskul;
-use App\Models\Galeri;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
+// CONTROLLER USED
+    use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\BeritaController;
+    use App\Http\Controllers\dashboardController;
+    use App\Http\Controllers\eskulController;
+    use App\Http\Controllers\galeriController;
+    use App\Http\Controllers\guruController;
+    use App\Http\Controllers\publicController;
+    use App\Http\Controllers\jurusanController;
+    use App\Http\Controllers\profilController;
+    use App\Http\Controllers\siswaController;
+    use App\Http\Controllers\userController;
+// MODEL USED
+    use App\Models\Eskul;
+    use App\Models\Galeri;
 
 // PUBLIC PAGE
-    // BERANDA
-    Route::get('/', [homeController::class, 'index'])->name('public.home');
-    
+    // TEMP (MASTER LAYOUT)
+    Route::get('/templatePublic', [publicController::class, 'index']);
+    // HOME
+    Route::get('/', [publicController::class, 'index'])->name('public.home');
     // PROFIL
-    Route::get('/profilsekolah', function(){
-        return view('public.profil');
-    })->name('public.profil');
-
-    // BERITA   
-    Route::get('/artikel', [homeController::class, 'berita'])-> name('public.berita');
-        // DETAIL BERITA
-        Route::get('/artikel/{slug}', [homeController::class, 'detail'])->name('detail.berita');
-
+    Route::get('/profilsekolah', [publicController::class, 'profil'])->name('public.profil');
+    // BERITA
+    Route::get('/artikel', [publicController::class, 'berita'])->name('public.berita');
+    Route::get('/artikel/{slug}', [publicController::class, 'detail'])->name('detail.berita');
     // JURUSAN
-    Route::get('/jurusan', function(){
-        return view('public.jurusan');
-    })->name('public.jurusan');
+    Route::view('/program-keahlian', 'public.jurusan')->name('public.jurusan');
 
-    // ESKUL
-    Route::get('/ekstrakulikuler', function(){
-        $data = Eskul::all();
-        return view('public.eskul', compact('data'));
-    } 
-    )->name('public.eskul');
+Route::get('/ekstrakulikuler', fn() => view('public.eskul', ['data' => Eskul::all()]))->name('public.eskul');
+Route::get('/galerisekolah', fn() => view('public.galeri', ['galeri' => Galeri::all()]))->name('public.galeri');
+
+// GUEST ROUTES (LOGIN)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'pageLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+});
+
+// AUTHENTICATED ROUTES (ADMIN SIDE)
+Route::middleware('auth')->group(function () {
+    
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
+
+    // PROFIL
+    Route::get('/profil', [profilController::class, 'index'])->name('profil.index');
+    Route::put('/profil', [profilController::class, 'update'])->name('profil.update');
+
+    // USER
+    Route::resource('user', userController::class)->except(['show', 'destroy']);
+    Route::get('/user/delete/{id}', [userController::class, 'delete'])->name('user.delete');
+
+    // SISWA
+    Route::resource('siswa', siswaController::class)->except(['show', 'destroy']);
+    Route::get('/siswa/delete/{id}', [siswaController::class, 'delete'])->name('siswa.delete');
+
+    // GURU
+    Route::resource('guru', guruController::class)->except(['show', 'destroy']);
+    Route::get('/guru/delete/{id}', [guruController::class, 'delete'])->name('guru.delete');
 
     // GALERI
-    Route::get('/galerisekolah', function(){
-        $galeri = Galeri::all();
-        return view('public.galeri', compact('galeri'));
-    } 
-    )->name('public.galeri');
+    Route::resource('galeri', galeriController::class)->except(['show', 'destroy']);
+    Route::get('/galeri/delete/{id}', [galeriController::class, 'delete'])->name('galeri.delete');
 
-// ADMIN SIDE
-    // LOGIN
-    Route::middleware('guest')->group(function () {
-        Route::get('/login', [AuthController::class, 'pageLogin'])->name('login');
-        Route::post('/login', [AuthController::class, 'login']);
-    });
+    // BERITA
+    Route::resource('berita', BeritaController::class)->except(['show', 'destroy']);
+    Route::get('/berita/delete/{id}', [BeritaController::class, 'delete'])->name('berita.delete');
 
-    Route::middleware('auth')->group(function(){
-        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    // ESKUL
+    Route::resource('eskul', eskulController::class)->except(['destroy']);
+    Route::get('/eskul/delete/{id}', [eskulController::class, 'delete'])->name('eskul.delete');
 
-        // DASHBOARD
-            Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
-            // EDIT PROFIL USER
-
-        // MENU  DATA USER
-            //READ
-            Route::get('/user', [userController::class, 'index'])->name('user.index');
-
-            //CREATE
-            Route::get('/user/create', [userController::class, 'create'])->name('user.create');
-            Route::post('/user', [userController::class, 'store'])->name('user.store');
-
-            //UPDATE
-            Route::get('/user/edit/{id}', [userController::class, 'edit'])->name('user.edit');
-            Route::put('/user/update/{id}', [userController::class, 'update'])->name('user.update');
-
-            //DELETE
-            Route::get('/user/delete/{id}', [userController::class, 'delete'])->name('user.delete');
-
-        // PROFIL SEKOLAH
-            //PAGE (READ)
-            Route::get('/profil', [profilController::class, 'index'])->name('profil.index');
-            
-            //UPDATE
-            Route::get('/profil/form', [profilController::class, 'edit'])->name('profil.form');
-            Route::put('/profil/update', [profilController::class, 'update'])->name('profil.update');
-
-        // SISWA
-            //READ
-            Route::get('/siswa', [siswaController::class, 'index'])->name('siswa.index');
-
-            // CREATE
-            Route::get('/siswa/create', [siswaController::class, 'create'])->name('siswa.create');
-            Route::post('/siswa', [siswaController::class, 'store'])->name('siswa.store');
-
-            //UPDATE
-            Route::get('/siswa/edit/{id}', [siswaController::class, 'edit'])->name('siswa.edit');
-            Route::put('/siswa/update/{id}', [siswaController::class, 'update'])->name('siswa.update');
-
-            //DELETE
-            Route::get('/siswa/delete/{id}', [siswaController::class, 'delete'])->name('siswa.delete');
-        
-        // GURU
-            //READ
-            Route::get('/guru', [guruController::class, 'index'])->name('guru.index');
-
-            // CREATE
-            Route::get('/guru/create', [guruController::class, 'create'])->name('guru.create');
-            Route::post('/guru', [guruController::class, 'store'])->name('guru.store');
-
-            //UPDATE
-            Route::get('/guru/edit/{id}', [guruController::class, 'edit'])->name('guru.edit');
-            Route::put('/guru/update/{id}', [guruController::class, 'update'])->name('guru.update');
-
-            //DELETE
-            Route::get('/guru/delete/{id}', [guruController::class, 'delete'])->name('guru.delete');
-
-        // GALERI
-            // READ
-            Route::get('/galeri', [galeriController::class, 'index'])->name('galeri.index');
-
-            // CREATE
-            Route::get('/galeri/create', [galeriController::class, 'create'])->name('galeri.create');
-            Route::post('/galeri/', [galeriController::class, 'store'])->name('galeri.store');
-
-            //UPDATE
-            Route::get('/galeri/edit/{id}', [galeriController::class, 'edit'])->name('galeri.edit');
-            Route::put('/galeri/update/{id}', [galeriController::class, 'update'])->name('galeri.update');
-
-            // DELETE
-            Route::get('/galeri/delete/{id}', [galeriController::class, 'delete'])->name('galeri.delete');
-
-        // BERITA
-            // READ (INDEX)
-            Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
-
-            // CREATE
-            Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create');
-            Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
-
-            // UPDATE
-            Route::get('/berita/edit/{id}', [BeritaController::class, 'edit'])->name('berita.edit');
-            Route::put('/berita/update/{id}', [BeritaController::class, 'update'])->name('berita.update');
-
-            // DELETE
-            Route::get('/berita/delete/{id}', [BeritaController::class, 'delete'])->name('berita.delete');
-        
-        // ESKUL
-            Route::resource('eskul', eskulController::class)->except(['destroy']);
-            Route::get('/eskul/delete/{id}', [eskulController::class, 'delete'])->name('eskul.delete');
-    });
+    // JURUSAN
+    Route::resource('jurusan', jurusanController::class)->except(['destroy']);
+    Route::get('/jurusan/delete/{id}', [jurusanController::class, 'delete'])->name('jurusan.delete');
+});

@@ -19,8 +19,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('gambar', 100);
             $table->foreignId('idGuru')->references('id')->on('guru')
-                    ->onUpdate('cascade')
-                    ->onDelete('restrict');
+                    ->onUpdate('cascade');
             $table->timestamps();
         });
     }

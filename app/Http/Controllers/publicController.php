@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Berita;
 use App\Models\Eskul;
+use App\Models\Profil;
+use App\Models\sosmed;
 use Illuminate\Http\Request;
 
-class homeController extends Controller
+class publicController extends Controller
 {
     //
     public function index(Request $request)
@@ -16,8 +18,15 @@ class homeController extends Controller
                     ->take(3)->get();
 
         $eskul = Eskul::with('guru')->get();
+        $profil = Profil::first();
 
-        return view('public.home', compact('berita', 'eskul'));
+        return view('public.home', compact('berita', 'eskul', 'profil'));
+    }
+
+    public function profil(){
+        $profil = Profil::first();
+
+        return view('public.profil', compact('profil'));
     }
 
     public function berita(Request $request)
@@ -45,5 +54,10 @@ class homeController extends Controller
                         ->get();
 
         return view('public.berita.detail', compact('data','baru'));
+    }
+
+    public function sosmed(){
+        $sosmed = sosmed::all();
+        return view('public.temp', compact('sosmed'));
     }
 }

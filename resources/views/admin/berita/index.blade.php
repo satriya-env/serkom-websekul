@@ -1,4 +1,4 @@
-@extends('temp')
+@extends('admin.temp')
 @section('title', 'Data Berita')
 @section('content')
 {{-- STYLES --}}

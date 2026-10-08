@@ -1,4 +1,4 @@
-@extends('temp')
+@extends('admin.temp')
 @section('title','Tambah Data')
 @section('content')
     <div class="container-fluid bg-dark min-vh-100 py-5">

@@ -1,4 +1,4 @@
-@extends('public.nav')
+@extends('public.temp')
 
 @section('title', 'Jurusan - SMK YPC Tasikmalaya')
 
@@ -97,9 +97,12 @@
             .jurusan-body { text-align: center; }
             .karier-list { text-align: left; display: inline-block; }
             .jurusan-img { height: 260px; }
+            #text-jurusan { text-align: start}
         }
         @media (max-width: 575.98px) {
             .page-header { padding: 130px 0 50px; }
+            #text-jurusan { text-align: start}
+            
         }
 </style>
 @endpush
@@ -193,7 +196,7 @@
     {{-- HEADER --}}
     <div class="page-header" style="background-image: url('{{ asset('assets/img/banner.png') }}');">
         <div class="container">
-            <span class="text-warning d-block mb-2">PROGRAM KEAHLIAN</span>
+            <span class="small font-weight-bold text-warning d-block">PROGRAM KEAHLIAN</span>
             <h1 class="font-weight-bold mb-3">Jurusan</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -239,7 +242,7 @@
                             <div class="col-auto">
                                 <img src="{{ $item['logo'] }}" alt="{{ $item['nama'] }}" onerror="this.style.display='none'" style="height: 100px;">
                             </div>
-                            <div class="col text-start">
+                            <div class="col text-start" id="text-jurusan">
                                 <span class="text-warning font-weight-bold d-block">{{ $item['singkatan'] }}</span>
                                 <span class="text-primary font-weight-bold h3">{{ $item['nama'] }}</span>
                             </div>

@@ -1,4 +1,4 @@
-@extends('public.nav')
+@extends('public.temp')
 
 @section('title', 'Profil - SMK YPC Tasikmalaya')
 
@@ -230,7 +230,7 @@
     {{-- HEADER --}}
     <div class="page-header" style="background-image: url('{{ asset('assets/img/banner.png') }}');">
         <div class="container">
-            <span class="text-warning d-block mb-2">TENTANG KAMI</span>
+            <span class="small font-weight-bold text-warning d-block">TENTANG KAMI</span>
             <h1 class="font-weight-bold mb-3">Profil Sekolah</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -253,15 +253,15 @@
             <div class="col-md-7 pl-md-5 sejarah-body">
                 <span class="text-warning d-block mb-1">SEKILAS SEKOLAH</span>
                 <h2 class="text-primary font-weight-bold h3 mb-3">Sejarah SMK YPC Tasikmalaya</h2>
-                <p>
-                    SMK YPC Tasikmalaya didirikan pada 9 Juni 1997 di bawah naungan Yayasan Pesantren Cintawana untuk memadukan pendidikan kejuruan modern dengan nilai-nilai agama.
-                    Pada awal berdiri, sekolah vokasi ini hanya membuka dua program keahlian, yaitu Elektronika Komunikasi dan Mekanik Otomotif.
-                    Perkembangan besar terjadi saat sekolah mendapatkan bantuan dari Islamic Development Bank (IDB) pada tahun 1999 yang mempercepat pembangunan fasilitas gedung dan pengadaan alat praktik.
-                </p>
-                <p class="mb-0">
-                    Saat ini, sekolah tersebut telah berkembang pesat menjadi salah satu SMK unggulan berakreditasi A di wilayah Singaparna, Tasikmalaya.
-                    Dengan memadukan kurikulum industri dan lingkungan pesantren tradisional, SMK YPC sukses mencetak ribuan lulusan yang kompeten di bidang teknologi sekaligus memiliki karakter akhlakul karimah.
-                </p>
+                @php
+                    $teks = explode(' ', $profil->sejarah );
+                    $awal = implode(' ', array_slice($teks, 0 ,22) );
+                    $mid = implode(' ', array_slice($teks, 22, 41) );
+                    $end = implode(' ', array_slice($teks, 63) );
+                @endphp
+                <p>{{ $awal }}.</p>
+                <p>{{ $mid }}.</p>
+                <p>{{ $end }}</p>
             </div>
         </div>
     </div>
@@ -301,31 +301,34 @@
                 <h3 class="font-weight-bold text-primary">Visi dan Misi Sekolah Kami</h3>
             </div>
 
-            <div class="row">
+            <div class="col">
                 {{-- Visi --}}
-                <div class="col-lg-5 mb-4">
+                <div class="row-lg-5 mb-4">
                     <div class="card vm-card h-100 p-4">
                         <div class="text-center">
                             <h5 class="text-center font-weight-bold mb-3">Visi</h5>
                         </div>
-                        <p class="mb-0">
-                            Menjadi SMK yang unggul dalam prestasi, didasari IMTAK, dihiasi Akhlakul Karimah, dan dibekali dengan IPTEK serta mampu bersaing pada tingkat Nasional dan Global.
-                        </p>
+                        <p class="w-75 text-center mb-0 mx-auto">
+                            {{ $profil->visi }}
                     </div>
                 </div>
 
                 {{-- Misi --}}
-                <div class="col-lg-7 mb-4">
+                <div class="row-lg-7 mb-4">
                     <div class="card vm-card h-100 p-4">
                         <div class="text-center">
                             <h5 class="text-center font-weight-bold mb-3">Misi</h5>
                         </div>
-                        <ul class="misi-list mb-0">
-                            <li>Menumbuhkan semangat keunggulan dan kompetitif secara intensif kepada seluruh warga sekolah.</li>
-                            <li>Mewujudkan lingkungan pendidikan yang kondusif, penuh kreativitas, kerjasama, dan dinamika dengan penonjolan prestasi tinggi.</li>
-                            <li>Menyelenggarakan pendidikan yang aktif, efektif, efisien, berkualitas, permeabel, dan fleksibel yang berorientasi pada pencapaian kompetensi berstandar Nasional dan Internasional.</li>
-                            <li>Menghasilkan tenaga kerja profesional di bidang teknologi untuk memenuhi tuntutan dunia usaha dan industri serta mengintensifkan hubungan dengan Dunia Usaha/Dunia Industri yang memiliki reputasi Nasional dan Internasional.</li>
-                            <li>Membekali peserta didik untuk mampu mengembangkan diri.</li>
+                        @php
+                            $items = explode('.', $profil->misi);
+                        @endphp
+
+                        <ul>
+                            @foreach ($items as $item)
+                                @if(trim($item))
+                                    <li>{{ trim($item, '.') }}.</li>
+                                @endif
+                            @endforeach
                         </ul>
                     </div>
                 </div>

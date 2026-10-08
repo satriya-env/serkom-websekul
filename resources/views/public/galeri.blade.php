@@ -1,4 +1,4 @@
-@extends('public.nav')
+@extends('public.temp')
 
 @section('title', 'Galeri - SMK YPC Tasikmalaya')
 
@@ -154,7 +154,7 @@
     {{-- HEADER --}}
     <div class="page-header" style="background-image: url('{{ asset('assets/img/banner.png') }}');">
         <div class="container">
-            <span class="text-warning d-block mb-2">MOMEN KAMI</span>
+            <span class="small font-weight-bold text-warning d-block">ARSIP KAMI</span>
             <h1 class="font-weight-bold mb-3">Galeri</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">

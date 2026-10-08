@@ -48,16 +48,6 @@ class BeritaController extends Controller
             'tanggal' => 'required|date',
             'gambar' => 'required|image|mimes:jpeg,png,jpg|max:5120',
             'status' => 'required|in:Draf,Publish',
-        ],[
-            'judul.required' => 'Judul harus diisi',
-            'judul.max' => 'Maksimal Judul adalah 50 karakter',
-            'isi.required' => 'Isi berita masih kosong',
-            'tanggal.required' => 'Tanggal harus diisi',
-            'tanggal.date' => 'Tanggal tidak valid',
-            'gambar.image' => 'File gambar tidak valid',
-            'gambar.mimes' => 'Format gambar harus: .jpeg, .png, .jpg',
-            'gambar.max' => 'Ukuran gambar maksimal 5MB',
-            'slug.unique' => 'Judul sudah digunakan.'
         ]);
 
         $valid['gambar'] = $request->file('gambar')?->store('berita', 'public');

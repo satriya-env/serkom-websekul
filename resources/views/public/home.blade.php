@@ -1,4 +1,4 @@
-@extends('public.nav')
+@extends('public.temp')
 
 @section('title', 'SMK YPC Tasikmalaya')
 
@@ -242,6 +242,8 @@
         @media (max-width: 575.98px) {
             .program-card { width: 240px; }
             .program-nav { display: none; }
+            .jurusan-img{display: none;}
+            #btn-jurusan{ margin-bottom: 10%;}
         }
 
     /* BERITA  */
@@ -311,7 +313,7 @@
             <div class="card overflow-hidden" id="cardsambutan">
                 <div class="row no-gutters align-items-stretch">
                     <div class="col-md-4 col-12 bg-light">
-                        <img src="{{ asset('assets/img/kepala.jpg') }}" alt="Foto Kepala Sekolah" class="sambutan-img w-100">
+                        <img src="{{ asset('storage/informasi/kepala.jpg') }}" alt="Foto Kepala Sekolah" class="sambutan-img w-100">
                     </div>
 
                     <div class="col-md-8 col-12 d-flex">
@@ -319,12 +321,14 @@
                             <span class="text-warning font-weight-bold d-block mb-1">KOMITMEN KAMI UNTUK PENDIDIKAN</span>
                             <h2 class="card-title text-primary font-weight-bold h4">Sambutan dari Kepala Sekolah</h2>
                             <div class="card-text">
-                                <p>Puji syukur ke hadirat Tuhan YME atas segala rahmat dan karunia-Nya. Selamat datang di website resmi sekolah kami.</p>
-                                <p class="mb-4">
-                                    Website ini kami hadirkan sebagai sarana informasi dan komunikasi antara sekolah dengan orang tua, peserta didik, serta masyarakat luas.
-                                    Dengan harapan seluruh informasi mengenai kegiatan, prestasi, serta program pendidikan dapat tersampaikan secara transparan, cepat, dan akurat.
-                                </p>
-                                <span class="font-weight-bold">Drs. Ujang Sanusi MM.</span>
+                                @php
+                                    $teks = explode(' ', $profil->sambutan);
+                                    $awal = implode(' ', array_slice($teks, 0, 18));
+                                    $lanjutan = implode(' ', array_slice($teks, 18));
+                                @endphp
+                                <p>{{ $awal }}.</p>
+                                <p>{{ $lanjutan }}</p>
+                                <span class="font-weight-bold">{{ $profil->kepalaSekolah }}</span>
                             </div>
                         </div>
                     </div>
@@ -340,18 +344,15 @@
                 <div class="col-lg-6 col-md-8 col-12">
                     <span class="text-warning font-weight-bold d-block mb-2">PROFIL SEKOLAH</span>
                     <h2 class="font-weight-bold mb-4">Selamat Datang di SMK YPC Tasikmalaya!</h2>
-                    <p>
-                        Sekolah kami merupakan institusi pendidikan yang berkomitmen untuk menciptakan generasi unggul, berkarakter,
-                        dan siap menghadapi tantangan masa depan. Dengan mengedepankan kualitas pendidikan yang seimbang antara akademik dan keterampilan praktis,
-                        kami hadir sebagai solusi pendidikan modern yang relevan dengan perkembangan zaman.
-                    </p>
-                    <p>
-                        Didirikan dengan visi untuk menjadi sekolah yang inovatif dan berdaya saing, kami terus berupaya menghadirkan lingkungan belajar yang inspiratif,
-                        nyaman, dan mendukung perkembangan potensi setiap siswa. Kami percaya bahwa setiap siswa memiliki keunikan dan potensi yang dapat dikembangkan
-                        melalui pendekatan pendidikan yang tepat.
-                    </p>
+                    @php
+                        $text = explode(' ', $profil->deskripsi);  
+                        $top = implode(' ', array_slice($text, 0, 39));
+                        $bot = implode(' ', array_slice($text, 39));
+                    @endphp
+                    <p> {{ $top }}. </p>
+                    <p> {{ $bot }} </p>
 
-                    <a href="#" class="btn btn-primary">
+                    <a href="{{route('public.profil')}}" class="btn btn-primary">
                         Baca selengkapnya
                         <i class="fas fa-arrow-right ml-1"></i>
                     </a>
@@ -483,7 +484,7 @@
     <div class="container pt-5">
         <div class="m-0">
             <div class="row">
-                <img src="{{ asset('assets/img/jurusan.png')}}" style="height: 250px">
+                <img src="{{ asset('assets/img/jurusan.png')}}" style="height: 250px" class="jurusan-img">
                 <div class="col">
                     <span class="font-weight-bold text-warning">PILIHAN KOMPETENSI</span>
                     <h3 class="font-weight-bold text-primary">Program Keahlian</h3>
@@ -492,7 +493,7 @@
                         Pembelajaran difokuskan pada praktik, teknologi terkini, serta penguatan keterampilan profesional.
                     </p>
                     <a href="{{route('public.jurusan')}}">
-                        <div class="btn btn-primary">
+                        <div class="btn btn-primary" id="btn-jurusan">
                             Lihat Semua
                         </div>
                     </a>

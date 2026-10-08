@@ -1,4 +1,4 @@
-@extends('public.nav')
+@extends('public.temp')
 
 @section('title', 'Ekstrakurikuler - SMK YPC Tasikmalaya')
 
@@ -91,7 +91,7 @@
     {{-- HEADER --}}
     <div class="page-header" style="background-image: url('{{ asset('assets/img/banner.png') }}');">
         <div class="container">
-            <span class="text-warning d-block mb-2">BAKAT DAN MINAT</span>
+            <span class="small font-weight-bold text-warning d-block">BAKAT DAN MINAT</span>
             <h1 class="font-weight-bold mb-3">Ekstrakurikuler</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -102,7 +102,7 @@
         </div>
     </div>
     
-    <div class="container-fluid py-5">
+    <div class="container-fluid pt-5">
         <div class="container text-center">
             <h3 class="font-weight-bold text-primary">Temukan Bakat dan Minatmu bersama Kami</h3>
             <p class="mx-auto mb-4" style="max-width: 700px;">
@@ -113,7 +113,7 @@
     </div>
 
     {{-- DAFTAR ESKUL --}}
-    <div class="container py-5 my-lg-4">
+    <div class="container pt-2 my-lg-4">
         @if ($data->isNotEmpty())
             <p class="text-muted mb-4">
                 Menampilkan <strong>{{ $data->count() }}</strong> ekstrakurikuler

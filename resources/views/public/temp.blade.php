@@ -40,11 +40,13 @@
             z-index: 1040;
         }
         .topbar.navbar-floating .navbar-brand img { height: 45px; max-width: none; }
-        .topbar .navbar-toggler { border-color: rgba(255, 255, 255, .6); }
+        .topbar .navbar-toggler { border: none }
 
         .topbar .nav-link { transition: opacity .2s; }
         .topbar .nav-link:hover { opacity: .75; }
-
+        .dropdown-menu {
+            background-color: #1a2b88;
+        }
         .dropdown-item { color: aliceblue; }
         .dropdown-item:hover,
         .dropdown-item:focus {
@@ -61,7 +63,10 @@
                 float: none;
                 border: 0;
                 box-shadow: none !important;
-                background: transparent;
+                background-color: #fff;
+            }
+            .dropdown-item{
+                color: #1a2b88;
             }
         }
 
@@ -118,7 +123,7 @@
 
     @stack('style')
 </head>
-<body>
+<body id="page-top">
     {{-- Navbar --}}
     <nav class="navbar navbar-expand-md navbar-dark topbar navbar-floating bg-gradient-primary px-3">
         <a class="navbar-brand m-0" href="{{ url('/') }}">
@@ -146,7 +151,7 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Program
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right bg-gradient-primary shadow" aria-labelledby="programDropdown">
+                    <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="programDropdown">
                         <a class="dropdown-item" href="{{ route('public.jurusan') }}">Jurusan</a>
                         <a class="dropdown-item" href="{{ route('public.eskul') }}">Ekstrakurikuler</a>
                     </div>
@@ -160,6 +165,10 @@
 
     {{-- Content --}}
     @yield('content')
+    
+    <a class="scroll-to-top rounded bg-primary" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
     {{-- FOOTER --}}
     <footer class="site-footer bg-gradient-primary">
@@ -173,11 +182,11 @@
                         dan siap bersaing di dunia kerja maupun wirausaha.
                     </p>
                     <div class="social">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" aria-label="TikTok"><i class="fab fa-whatsapp"></i></a>
+                        @forelse ($sosmed as $item)
+                            <a href="{{ $item->link }}" aria-label="{{$item->platform}}" target="_blank"><i class="fab fa-{{$item->platform}}" ></i></a>
+                        @empty
+                            <span>Belum ada sosmed</span>
+                        @endforelse
                     </div>
                 </div>
 
@@ -191,11 +200,11 @@
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
-                        <span><a href="tel:+620000000000">(0265) 000-000</a></span>
+                        <span><a href="tel:+0265546717">0265-546717</a></span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <span><a href="mailto:info@smkypc.sch.id">info@smkypc.sch.id</a></span>
+                        <span><a href="mailto:smkypctasikmalaya@gmail.com">smkypctasikmalaya@gmail.com</a></span>
                     </div>
                 </div>
             </div>

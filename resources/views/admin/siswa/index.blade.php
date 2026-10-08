@@ -1,4 +1,4 @@
-@extends('temp')
+@extends('admin.temp')
 @push('style')
         <style>
         #tableSiswa{

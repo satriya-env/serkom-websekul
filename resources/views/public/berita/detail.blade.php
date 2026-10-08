@@ -1,4 +1,4 @@
-@extends('public.nav')
+@extends('public.temp')
 
 @section('title', $baru->judul . ' - SMK YPC Tasikmalaya')
 

@@ -1,4 +1,4 @@
-@extends('public.nav')
+@extends('public.temp')
 
 @section('title', 'Berita - SMK YPC Tasikmalaya')
 
@@ -113,8 +113,8 @@
     {{-- HEADER --}}
     <div class="page-header" style="background-image: url('{{ asset('assets/img/banner.png') }}');">
         <div class="container">
-            <span class="text-warning d-block mb-2">INFO TERKINI</span>
-            <h1 class="font-weight-bold mb-3">Berita dan Artikel</h1>
+            <span class="small font-weight-bold text-warning d-block">INFO TERKINI</span>
+            <h1 class="font-weight-bold mb-3">Artikel</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('public.home') }}">Beranda</a></li>

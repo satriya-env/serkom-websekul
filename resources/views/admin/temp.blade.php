@@ -62,6 +62,15 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
+            
+            <!-- Nav Item - Profil Sekolah -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('profil.index')}}">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Profil Sekolah</span>
+                </a>
+            </li>
+            
             <!-- Nav Item - Data User -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
@@ -76,13 +85,20 @@
                     </div>
                 </div>
             </li>
-
-            <!-- Nav Item - Eskul -->
+            
+            <!-- Nav Item - Program -->
             <li class="nav-item">
-                <a class="nav-link" href="{{route('eskul.index')}}">
-                    <i class="fas fa-fw fa-shapes"></i>
-                    <span>Ekstrakulikuller</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProgram"
+                    aria-expanded="true" aria-controls="collapseProgram">
+                    <i class="fas fa-fw fa-info-circle"></i>
+                    <span>Program</span>
                 </a>
+                <div id="collapseProgram" class="collapse" aria-labelledby="headingInformasi" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('jurusan.index')}}">Jurusan</a>
+                        <a class="collapse-item" href="{{route('eskul.index')}}">Ekstrakulikuler</a>
+                    </div>
+                </div>
             </li>
             
             <!-- Nav Item - Informasi -->

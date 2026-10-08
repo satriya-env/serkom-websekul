@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\sosmed;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
+
+// use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,8 +24,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        if ($this->app->environment('production', 'local')) {
-            URL::forceScheme('https');
-        }
+
+        // if ($this->app->environment('production', 'local')) {
+        //     URL::forceScheme('https');
+        // }
+        View::composer('public.temp', function($view){
+            $view->with('sosmed', sosmed::all());
+        });
     }
 }

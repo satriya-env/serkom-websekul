@@ -1,4 +1,4 @@
-@extends('temp')
+@extends('admin.temp')
 @section('title', 'Data Galeri')
 @section('content')
 {{-- STYLES --}}

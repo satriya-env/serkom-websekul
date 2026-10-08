@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\Eskul;
 use App\Models\Guru;
 use App\Models\Siswa;
 use App\Models\User;
@@ -17,8 +18,11 @@ class dashboardController extends Controller
         $totalSiswa = Siswa::count();
         $totalGuru = Guru::count();
         $totalBerita = Berita::count();
+        $totalEskul = Eskul::count();
 
         // VARIABLE 'BARU DITAMBAHKAN'
+            // BERITA
+            $berita = Berita::latest()->take(5)->get();
             // TABEL USER
             $user = User::latest()->take(5)->get()->map(function ($item){
                 $item->type = 'Data User';
@@ -37,9 +41,17 @@ class dashboardController extends Controller
                 $item->route = route('guru.index');
                 return $item;
             });
+            // TABEL ESKUL
+            $eskul = Eskul::latest()->take(5)->get()->map(function ($item){
+                $item->type = 'Ekstrakulikuler';
+                $item->route = route('eskul.index');
+                return $item;
+            });
 
         $recent =  $user->concat($siswa)
                         ->concat($guru)
+                        ->concat($user)
+                        ->concat($eskul)
                         ->sortByDesc('updated_at')
                         ->take(5);
 
@@ -51,7 +63,9 @@ class dashboardController extends Controller
                 'totalSiswa', 
                 'totalGuru', 
                 'totalBerita',
-                'recent'
+                'totalEskul',
+                'berita',
+                'recent',
             ));
     }
 }
