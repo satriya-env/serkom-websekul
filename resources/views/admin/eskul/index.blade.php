@@ -53,7 +53,7 @@
                     {{-- Informasi --}}
                     <div class="col-md-5 col-lg-6">
                         <h4 class="font-weight-bold my-2 text-light">{{ $item->namaEskul }}</h4>
-                        <p class="small mb-4 text-muted">Pembina: {{ $item->pembina }}</p>
+                        <p class="small mb-4 text-muted">Pembina: {{ $item->guru->namaGuru }}</p>
                         <p class="mb-1 text-light"><strong>Jadwal:</strong> {{ $item->jadwalLatihan }}</p>
                         <p class="mb-0 text-light">{{ $item->deskripsi }}</p>
                     </div>

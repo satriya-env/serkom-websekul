@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('eskul', function (Blueprint $table) {
             $table->id();
             $table->string('namaEskul', 40);
-            $table->string('pembina', 40);
+            $table->foreignId('idGuru')->references('id')->on('guru');
             $table->string('jadwalLatihan', 40);
             $table->text('deskripsi');
             $table->string('gambar', 100);
-            $table->foreignId('idGuru')->references('id')->on('guru')
-                    ->onUpdate('cascade');
             $table->timestamps();
         });
     }

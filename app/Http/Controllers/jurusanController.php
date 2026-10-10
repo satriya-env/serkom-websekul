@@ -52,7 +52,7 @@ class jurusanController extends Controller
     {
         $valid = $request->validate($this->rules(true));
 
-        $valid['logo']   = $request->file('logo')->store('jurusan', 'public');
+        $valid['logo']   = $request->file('logo')->store('jurusan/logo', 'public');
         $valid['gambar'] = $request->file('gambar')->store('jurusan', 'public');
 
         jurusan::create($valid);

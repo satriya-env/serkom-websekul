@@ -1,5 +1,5 @@
 @extends('admin.temp')
-@section('title', 'Edit Data Eskul')
+@section('title', isset($data) ? 'Edit Data Eskul' : 'Tambah Data Eskul')
 @section('content')
     <div class="container-fluid bg-dark min-vh-100 py-5">
         <div class="card bg-dark text-white mx-auto w-75 border-secondary shadow">
@@ -26,22 +26,27 @@
                     </div>
                 @endif
 
-                <form class="user w-75 mx-auto my-4" action="{{ route('eskul.update', $data->id) }}" method="POST" enctype="multipart/form-data">
+                <form id="formEskul" class="user w-75 mx-auto my-4" 
+                    action="{{ isset($data) ? route('eskul.update', $data->id) : route('eskul.store') }}"
+                    method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
-                    @method('PUT')
+                    @if (isset($data))
+                        @method('PUT')
+                    @endif
 
-                    <h3 class="text-center text-white mb-4">Edit Eskul</h3>
+                    <h3 class="text-center text-white mb-4">
+                        {{ isset($data) ? 'Edit Data Eskul' : 'Form Eskul' }}
+                    </h3>
 
                     {{-- Nama Eskul --}}
                     <div class="form-group">
                         <label for="namaEskul" class="text-light">Nama Eskul</label>
                         <input type="text"
                             class="form-control @error('namaEskul') is-invalid @enderror"
-                            id="namaEskul"
-                            name="namaEskul"
+                            id="namaEskul" name="namaEskul"
                             placeholder="Masukkan Nama Ekstrakurikuler"
-                            maxlength="40"
-                            value="{{ old('namaEskul', $data->namaEskul) }}" required>
+                            maxlength="40" 
+                            value="{{ old('namaEskul', $data->namaEskul ?? '') }}" required>
                         @error('namaEskul')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -49,27 +54,48 @@
 
                     {{-- Pembina --}}
                     <div class="form-group">
-                        <label for="pembina" class="text-light">Nama Pembina</label>
-                        <input type="text"
-                            class="form-control @error('pembina') is-invalid @enderror"
-                            id="pembina"
-                            name="pembina"
-                            placeholder="Masukkan Nama Pembina"
-                            maxlength="40"
-                            value="{{ old('pembina', $data->pembina) }}" required>
-                        @error('pembina')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <label for="guruSearch" class="text-light">Nama Pembina</label>
+
+                        <div class="position-relative" id="guruWrapper">
+                            <input type="hidden" name="idGuru" id="idGuru" 
+                                value="{{ old('idGuru', $data->idGuru ?? '') }}">
+
+                            {{-- Input pencarian --}}
+                            <input type="text"
+                                class="form-control @error('idGuru') is-invalid @enderror"
+                                id="guruSearch"
+                                placeholder="Ketik untuk mencari guru..."
+                                autocomplete="off"
+                                value="{{ optional($guru->firstWhere('id', old('idGuru', $data->idGuru ?? null)))->namaGuru }}">
+
+                            {{-- Daftar guru --}}
+                            <div class="dropdown-menu bg-dark w-100 shadow border-secondary"
+                                id="guruList" style="max-height: 220px; overflow-y: auto;">
+                                @foreach ($guru as $g)
+                                    <button type="button"
+                                        class="dropdown-item text-light guru-item"
+                                        data-id="{{ $g->id }}"
+                                        data-nama="{{ $g->namaGuru }}">
+                                        {{ $g->namaGuru }}
+                                    </button>
+                                @endforeach
+                                <span class="dropdown-item-text text-muted d-none" id="guruKosong">
+                                    Guru tidak ditemukan
+                                </span>
+                            </div>
+
+                            <div class="invalid-feedback" id="guruError">
+                                @error('idGuru') {{ $message }} @else Silakan pilih guru pembina. @enderror
+                            </div>
+                        </div>
                     </div>
 
                     {{-- Deskripsi --}}
                     <div class="form-group">
                         <label for="deskripsi" class="text-light">Deskripsi Eskul</label>
                         <textarea class="form-control @error('deskripsi') is-invalid @enderror"
-                            id="deskripsi"
-                            name="deskripsi"
-                            rows="5"
-                            placeholder="Masukkan Deskripsi Ekstrakurikuler" required>{{ old('deskripsi', $data->deskripsi) }}</textarea>
+                            id="deskripsi" name="deskripsi" rows="4"
+                            placeholder="Masukkan Deskripsi Ekstrakurikuler" required>{{ old('deskripsi', $data->deskripsi ?? '') }}</textarea>
                         @error('deskripsi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -82,8 +108,7 @@
                             id="jadwalLatihan" name="jadwalLatihan" required>
                             <option value="">-- Pilih Jadwal Latihan --</option>
                             @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'] as $hari)
-                                <option value="{{ $hari }}"
-                                    {{ old('jadwalLatihan', $data->jadwalLatihan) == $hari ? 'selected' : '' }}>
+                                <option value="{{ $hari }}" {{ old('jadwalLatihan', $data->jadwalLatihan ?? '') == $hari ? 'selected' : '' }}>
                                     {{ $hari }}
                                 </option>
                             @endforeach
@@ -96,21 +121,15 @@
                     {{-- Gambar --}}
                     <div class="form-group">
                         <label for="gambar" class="text-light">Gambar Eskul</label>
-
-                        {{-- Preview Gambar Lama --}}
-                        @if (!empty($data->gambar))
+                        @if (isset($data) && $data->gambar)
                             <div class="mb-2">
-                                <img src="{{ asset('storage/' . $data->gambar) }}" alt="Gambar Eskul" height="100"
-                                    class="img-thumbnail bg-dark border-secondary">
+                                <img src="{{ asset('storage/' . $data->gambar) }}" alt="Preview Gambar" class="img-thumbnail" style="max-height: 120px;">
                             </div>
                         @endif
-
                         <input type="file"
-                            class="form-control-file text-light"
-                            id="gambar"
-                            name="gambar"
-                            accept="image/png, image/jpeg, image/jpg">
-                        <small class="form-text text-muted">Biarkan kosong jika tidak ingin mengganti gambar. Format: JPG, JPEG, PNG. Maksimal 5 MB.</small>
+                            class="form-control-file text-light @error('gambar') is-invalid @enderror"
+                            id="gambar" name="gambar" accept="image/png, image/jpeg, image/jpg">
+                        <small class="form-text text-muted">Format: JPG, JPEG, PNG. Maksimal 5 MB.</small>
                         @error('gambar')
                             <div class="text-danger small mt-1">{{ $message }}</div>
                         @enderror
@@ -118,12 +137,99 @@
 
                     <hr class="border-secondary">
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Simpan Data</button>
-                        <a href="{{ route('eskul.index') }}" class="btn btn-secondary btn-block">Batal</a>
+                    <div class="form-group d-flex justify-content-between">
+                        <a href="{{ route('eskul.index') }}" class="btn btn-secondary">Batal</a>
+                        <button type="submit" class="btn btn-primary px-4">
+                            {{ isset($data) ? 'Perbarui' : 'Simpan' }}
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    {{-- Hover item dropdown (gelap) --}}
+    <style>
+        #guruList .guru-item:hover,
+        #guruList .guru-item:focus {
+            background-color: #4e73df;
+            color: #fff;
+        }
+    </style>
+
+    <script>
+        (function () {
+            const wrapper  = document.getElementById('guruWrapper');
+            const search   = document.getElementById('guruSearch');
+            const hidden   = document.getElementById('idGuru');
+            const list     = document.getElementById('guruList');
+            const kosong   = document.getElementById('guruKosong');
+            const items    = list.querySelectorAll('.guru-item');
+            const form     = document.getElementById('formEskul');
+            let namaTerpilih = search.value;
+
+            function buka()  { list.classList.add('show'); }
+            function tutup() { list.classList.remove('show'); }
+
+            function filter() {
+                const kata = search.value.toLowerCase().trim();
+                let ada = false;
+                items.forEach(function (item) {
+                    const cocok = item.dataset.nama.toLowerCase().includes(kata);
+                    item.classList.toggle('d-none', !cocok);
+                    if (cocok) ada = true;
+                });
+                kosong.classList.toggle('d-none', ada);
+            }
+
+            // Buka daftar saat input difokuskan
+            search.addEventListener('focus', function () {
+                search.select();
+                filter();
+                buka();
+            });
+
+            // Filter saat mengetik
+            search.addEventListener('input', function () {
+                hidden.value = '';
+                search.classList.remove('is-invalid');
+                filter();
+                buka();
+            });
+
+            // Pilih guru
+            items.forEach(function (item) {
+                item.addEventListener('click', function () {
+                    hidden.value = item.dataset.id;
+                    search.value = item.dataset.nama;
+                    namaTerpilih = item.dataset.nama;
+                    search.classList.remove('is-invalid');
+                    tutup();
+                });
+            });
+
+            // Klik di luar: tutup daftar, kembalikan teks ke guru terpilih
+            document.addEventListener('click', function (e) {
+                if (!wrapper.contains(e.target)) {
+                    tutup();
+                    search.value = hidden.value ? namaTerpilih : '';
+                }
+            });
+
+            // Tombol Escape menutup daftar
+            search.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') tutup();
+            });
+
+            // Validasi sebelum submit: guru wajib dipilih
+            form.addEventListener('submit', function (e) {
+                if (!hidden.value) {
+                    e.preventDefault();
+                    search.classList.add('is-invalid');
+                    document.getElementById('guruError').style.display = 'block';
+                    search.focus();
+                }
+            });
+        })();
+    </script>
 @endsection

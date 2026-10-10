@@ -58,18 +58,17 @@
                         <span>Manajemen User</span>
                     </a>
                 </li>
+                <!-- Nav Item - Profil Sekolah -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('profil.index')}}">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Profil Sekolah</span>
+                    </a>
+                </li>
             @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-            
-            <!-- Nav Item - Profil Sekolah -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('profil.index')}}">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Profil Sekolah</span>
-                </a>
-            </li>
             
             <!-- Nav Item - Data User -->
             <li class="nav-item">
@@ -110,7 +109,6 @@
                 </a>
                 <div id="collapseInformasi" class="collapse" aria-labelledby="headingInformasi" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{route('profil.index')}}">Profil Sekolah</a>
                         <a class="collapse-item" href="{{route('berita.index')}}">Berita & Artikel</a>
                         <a class="collapse-item" href="{{route('galeri.index')}}">Galeri</a>
                     </div>

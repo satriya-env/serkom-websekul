@@ -10,7 +10,6 @@ class Eskul extends Model
     protected $table = 'eskul';
     protected $fillable = [
         'namaEskul',
-        'pembina',
         'jadwalLatihan',
         'deskripsi',
         'gambar',

@@ -39,6 +39,15 @@ class galeriController extends Controller
             'file' => 'required|file|mimes:jpeg,png,jpg,mp4|max:25600',
             'kategori' => 'required|in:Foto,Video',
             'tanggal' => 'required|date',
+        ], [
+        // Custom pesan error bahasa Indonesia
+        'judul.required'  => 'Judul berita wajib diisi.',
+        'isi.required'    => 'Isi berita wajib diisi.',
+        'tanggal.required'=> 'Tanggal berita wajib diisi.',
+        'gambar.required' => 'Foto/Gambar berita wajib diunggah!',
+        'gambar.image'    => 'File yang diunggah harus berupa gambar.',
+        'gambar.mimes'    => 'Format gambar harus jpeg, png, jpg, gif, atau svg.',
+        'gambar.max'      => 'Ukuran gambar maksimal adalah 2MB.',
         ]);
 
         $path = null;

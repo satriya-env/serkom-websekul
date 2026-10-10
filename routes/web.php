@@ -24,11 +24,13 @@ use Illuminate\Support\Facades\Route;
     Route::get('/', [publicController::class, 'index'])->name('public.home');
     // PROFIL
     Route::get('/profilsekolah', [publicController::class, 'profil'])->name('public.profil');
+    // GURU
+    Route::get('/daftarguru', [publicController::class, 'guru'])->name('public.guru');
     // BERITA
     Route::get('/artikel', [publicController::class, 'berita'])->name('public.berita');
     Route::get('/artikel/{slug}', [publicController::class, 'detail'])->name('detail.berita');
     // JURUSAN
-    Route::view('/program-keahlian', 'public.jurusan')->name('public.jurusan');
+    Route::get('/program-keahlian',[publicController::class, 'jurusan'])->name('public.jurusan');
 
 Route::get('/ekstrakulikuler', fn() => view('public.eskul', ['data' => Eskul::all()]))->name('public.eskul');
 Route::get('/galerisekolah', fn() => view('public.galeri', ['galeri' => Galeri::all()]))->name('public.galeri');

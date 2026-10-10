@@ -14,11 +14,14 @@ class siswaSeeder extends Seeder
     public function run(): void
     {
         //
-        DB::table('siswa')->insert([
-            'nisn' => '11111111',
-            'namaSiswa' => 'adul',
-            'jenisKelamin' => 'Laki-laki',
-            'tahunMasuk' => 2024,
-        ]);
+        for ($i=0; $i < 25; $i++) { 
+            DB::table('siswa')->insert([
+                'nisn' => '11111111',
+                'namaSiswa' => 'adul',
+                'jenisKelamin' => 'Laki-laki',
+                'tahunMasuk' => 2024,
+            ]);
+        }
+        
     }
 }

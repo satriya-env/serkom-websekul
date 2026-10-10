@@ -72,7 +72,9 @@
                     {{-- Aksi --}}
                     <div class="col-md-3 col-lg-3 text-md-right mt-3 mt-md-0 d-flex justify-content-md-end align-items-center">
                         <a href="{{ route('jurusan.edit', $item->id) }}" class="btn btn-warning btn-sm mr-2">Edit</a>
-                        <a href="{{ route('jurusan.delete', $item->id) }}" class="btn btn-danger btn-sm mr-2">Hapus</a>
+                        <a href="{{route('jurusan.delete', $item->id)}}" onclick="return confirm('Hapus Data {{$item->nama}}?')" class="btn btn-danger btn-sm">
+                            Hapus
+                        </a>
                     </div>
 
                 </div>

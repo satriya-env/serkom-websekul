@@ -20,7 +20,6 @@ class eskulSeeder extends Seeder
         // ARIYAPALA
         Eskul::create([
             'namaEskul' => 'Ariyapala',
-            'pembina' => 'Munawar Zaelani',
             'jadwalLatihan' => 'Minggu',
             'deskripsi' => 'Lorem Ipsum',
             'gambar' => 'eskul/arpal.png',
@@ -29,7 +28,6 @@ class eskulSeeder extends Seeder
         // FUTSAL
         Eskul::create([
             'namaEskul' => 'Futsal',
-            'pembina' => '-',
             'jadwalLatihan' => '-',
             'deskripsi' => 'Lorem Ipsum',
             'gambar' => 'eskul/futsal.png',
@@ -38,7 +36,6 @@ class eskulSeeder extends Seeder
         // OSIS
         Eskul::create([
             'namaEskul' => 'OSIS',
-            'pembina' => 'Salman Febriana Alfaridi',
             'jadwalLatihan' => '-',
             'deskripsi' => 'Lorem Ipsum',
             'gambar' => 'eskul/osis.png',
@@ -47,7 +44,6 @@ class eskulSeeder extends Seeder
         // PASKIBRA
         Eskul::create([
             'namaEskul' => 'PASKIBRA',
-            'pembina' => '-',
             'jadwalLatihan' => '-',
             'deskripsi' => 'Lorem Ipsum',
             'gambar' => 'eskul/paskib.png',
@@ -56,7 +52,6 @@ class eskulSeeder extends Seeder
         // PKS
         Eskul::create([
             'namaEskul' => 'PKS (Patroli Keamanan Siswa)',
-            'pembina' => '-',
             'jadwalLatihan' => '-',
             'deskripsi' => 'Lorem Ipsum',
             'gambar' => 'eskul/pks.png',
@@ -65,7 +60,6 @@ class eskulSeeder extends Seeder
         // PMR
         Eskul::create([
             'namaEskul' => 'PMR (Palang Merah Remaja)',
-            'pembina' => '-',
             'jadwalLatihan' => 'Jumat',
             'deskripsi' => 'Lorem Ipsum',
             'gambar' => 'eskul/pmr.png',
@@ -74,7 +68,6 @@ class eskulSeeder extends Seeder
         // POLSIS
         Eskul::create([
             'namaEskul' => 'POLSIS (Polisi Siswa)',
-            'pembina' => '-',
             'jadwalLatihan' => '-',
             'deskripsi' => 'Lorem Ipsum',
             'gambar' => 'eskul/polsis.png',
@@ -83,7 +76,6 @@ class eskulSeeder extends Seeder
         // PRAMUKA
         Eskul::create([
             'namaEskul' => 'Pramuka',
-            'pembina' => '-',
             'jadwalLatihan' => 'Sabtu',
             'deskripsi' => 'Lorem Ipsum',
             'gambar' => 'eskul/pramuka.png',

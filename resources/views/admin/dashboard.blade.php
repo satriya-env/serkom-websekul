@@ -97,7 +97,7 @@
         @foreach ($stats as $stat)
             <div class="stat-card bg-dark border-dark">
                 <div class="min-w-0">
-                    <div class="stat-label text-primary">{{ $stat['label'] }}</div>
+                    <div class="stat-label text-secondary">{{ $stat['label'] }}</div>
                     <div class="stat-value">{{ $stat['value'] }}</div>
                 </div>
                 <i class="fas {{ $stat['icon'] }} stat-icon text-white"></i>
