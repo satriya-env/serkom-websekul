@@ -48,9 +48,20 @@
 </style>
 
 {{-- CONTENT --}}
-    <div class="row">
-        <div class="col-lg-6 my-4">
-            <a href="{{route('galeri.create')}}" class="btn btn-primary">Tambah data</a>
+    <div class="row align-items-center mb-4">
+        <div class="col-md-6 col-lg-4 my-2">
+            <a href="{{ route('galeri.create') }}" class="btn btn-primary">Tambah data</a>
+        </div>
+
+        <div class="col-md-6 col-lg-8 my-2">
+            <form action="{{ route('galeri.index') }}" method="GET" class="form-inline justify-content-md-end">
+                <div class="input-group w-100" style="max-width: 400px;">
+                    <input type="text" name="search" class="form-control" placeholder="Cari judul galeri..." value="{{ request('search') }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Cari</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     @foreach ($data as $item)

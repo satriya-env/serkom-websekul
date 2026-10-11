@@ -42,9 +42,10 @@ class publicController extends Controller
     }
 
     public function guru(Request $request){
-        $data = Guru::query()
-        ->when($request->q, function ($query, $q) {
-            $query->where('namaGuru', 'like', "%{$q}%");
+        $search = $request->input('search');
+        $guru = Guru::where(function($q) use ($search){
+            $q->where('namaGuru', 'like', '%' . $search . '%')
+            ->orWhere('mapel', 'like', '%' . $search . '%');
         })
         ->orderBy('namaGuru')
         ->paginate(12)

@@ -15,25 +15,18 @@
 
 
 {{-- CONTENT --}}
-    <div class="row mb-3">
-        <div class="col-lg-6 mb-2">
-            <a href="{{route('siswa.create')}}" class="btn btn-primary">Tambah data</a>
+    <div class="row align-items-center mb-4">
+        <div class="col-md-6 col-lg-4 my-2">
+            <a href="{{ route('siswa.create') }}" class="btn btn-primary">Tambah data</a>
         </div>
-        <div class="col-lg-6">
-            <form action="{{ route('siswa.index') }}" method="GET" class="d-flex justify-content-lg-end">
-                <div class="input-group-append" style="max-width: 500px;">
-                    <select name="tahunMasuk" class="form-control">
-                        <option value="">Semua Tahun</option>
-                        @foreach ($filter as $tahun)
-                            <option value="{{ $tahun }}" {{ request('tahunMasuk') == $tahun ? 'selected' : '' }}>
-                                {{ $tahun }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <button type="submit" class="btn btn-secondary mx-2">Filter</button>
-                    @if(request('tahunMasuk'))
-                        <a href="{{ route('siswa.index') }}" class="btn btn-outline-light">Reset</a>
-                    @endif
+
+        <div class="col-md-6 col-lg-8 my-2">
+            <form action="{{ route('siswa.index') }}" method="GET" class="form-inline justify-content-md-end">
+                <div class="input-group w-100" style="max-width: 400px;">
+                    <input type="text" name="search" class="form-control" placeholder="Cari nama atau nisn..." value="{{ request('search') }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Cari</button>
+                    </div>
                 </div>
             </form>
         </div>

@@ -14,16 +14,21 @@ class siswaController extends Controller
     public function index(Request $request)
     {
         //READ ALL
-        $siswa = Siswa::when($request->filled('tahunMasuk'), function ($query) use ($request){
-            return $query->where('tahunMasuk', $request->tahunMasuk);
-        })->get();
+        // $siswa = Siswa::when($request->filled('tahunMasuk'), function ($query) use ($request){
+        //     return $query->where('tahunMasuk', $request->tahunMasuk);
+        // })->get();
 
-        // FILTER TAHUN MASUK
-        $filter =Siswa::distinct('tahunMasuk')
-                        ->orderBy('tahunMasuk', 'desc')
-                        ->pluck('tahunMasuk'); 
+        // // FILTER TAHUN MASUK
+        // $filter =Siswa::distinct('tahunMasuk')
+        //                 ->orderBy('tahunMasuk', 'desc')
+        //                 ->pluck('tahunMasuk'); 
+        $search = $request->input('search');
+        $siswa = Siswa::where(function($q) use ($search){
+            $q->where('namaSiswa', 'like', '%' . $search . '%')
+            ->orWhere('nisn', 'like', '%' . $search . '%');
+        })->get();
         
-        return view('admin.siswa.index', compact('siswa', 'filter'));
+        return view('admin.siswa.index', compact('siswa'));
     }
 
     /**

@@ -84,13 +84,19 @@
 
     {{-- STATISTIK --}}
     @php
-        $stats = [
-            ['label' => 'Total User',            'value' => $totalUser,   'icon' => 'fa-user'],
+        $stats = [];
+
+        // Total User hanya tampil untuk Admin
+        if (auth()->user()->role === 'Admin') {
+            $stats[] = ['label' => 'Total User', 'value' => $totalUser, 'icon' => 'fa-user'];
+        }
+
+        $stats = array_merge($stats, [
             ['label' => 'Total Data Siswa',      'value' => $totalSiswa,  'icon' => 'fa-user-graduate'],
             ['label' => 'Total Data Guru',       'value' => $totalGuru,   'icon' => 'fa-chalkboard-teacher'],
             ['label' => 'Jumlah Berita',         'value' => $totalBerita, 'icon' => 'fa-newspaper'],
             ['label' => 'Total Ekstrakulikuler', 'value' => $totalEskul,  'icon' => 'fa-futbol'],
-        ];
+        ]);
     @endphp
 
     <div class="stat-grid">
