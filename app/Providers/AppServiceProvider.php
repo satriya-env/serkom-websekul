@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Profil;
 use App\Models\sosmed;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
@@ -28,8 +29,12 @@ class AppServiceProvider extends ServiceProvider
         // if ($this->app->environment('production', 'local')) {
         //     URL::forceScheme('https');
         // } 
+
         View::composer('public.temp', function($view){
-            $view->with('sosmed', sosmed::all());
+            $view->with([
+                'sosmed' => sosmed::all(),
+                'profil' => Profil::first(),
+            ]);
         });
     }
 }

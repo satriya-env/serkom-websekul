@@ -79,7 +79,7 @@
                 <img src="{{ asset('assets/img/banner/1.png') }}" alt="Banner 1" class="d-block w-100" style="height:560px; object-fit:cover;">
                 <div class="position-absolute w-100 h-100 bg-dark" style="top:0; left:0; opacity:.7;"></div>
                 <div class="carousel-caption d-flex align-items-center text-left pt-5 pb-5" style="top:0; bottom:0; left:8%; right:8%;">
-                    <div class="mx-0 mx-md-5" style="max-width:480px;">
+                    <div class="mx-0 mx-md-5 w-25 pl-3">
                         <span class="text-warning font-weight-bold">SEKOLAH UNGGULAN</span>
                         <h1 class="h2 font-weight-bold">Membangun Generasi Emas</h1>
                         <span>Lingkungan belajar modern dengan tenaga pendidik profesional dan program terarah untuk membentuk karakter, kompetensi, dan kesiapan karier siswa.</span>
@@ -97,13 +97,13 @@
                 <img src="{{ asset('assets/img/banner/2.jpg') }}" alt="Banner 2" class="d-block w-100" style="height:560px; object-fit:cover;">
                 <div class="position-absolute w-100 h-100 bg-dark" style="top:0; left:0; opacity:.7;"></div>
                 <div class="carousel-caption d-flex align-items-center text-left pt-5 pb-5" style="top:0; bottom:0; left:8%; right:8%;">
-                    <div class="mx-0 mx-md-5" style="max-width:480px;">
+                    <div class="mx-0 mx-md-5 w-25 pl-3">
                         <span class="text-warning font-weight-bold">BELAJAR & BERKARYA</span>
                         <h1 class="h2 font-weight-bold">Tempat Tumbuh Bakat dan Prestasi</h1>
                         <span>Kami menghadirkan pendidikan berkualitas yang mengembangkan akademik, keterampilan, dan nilai karakter untuk masa depan yang lebih cerah.</span>
                         <div>
                             <a href="{{ route('public.jurusan') }}" class="btn btn-warning text-white mt-3">
-                                <i class="fas fa-chevron-right mr-1"></i> LIHAT PROGRAM KAMI
+                                Lihat Program Kami
                             </a>
                         </div>
                     </div>
@@ -130,11 +130,11 @@
             </div>
             <hr class="text-white">
             <div class="col-4 col-md py-3 py-md-4" id="statItem">
-                <div class="h2 font-weight-bold mb-0">1300+</div>
+                <div class="h2 font-weight-bold mb-0">{{ $totalSiswa }}</div>
                 <div class="small">Siswa</div>
             </div>
             <div class="col-4 col-md py-3 py-md-4" id="statItem">
-                <div class="h2 font-weight-bold mb-0">100+</div>
+                <div class="h2 font-weight-bold mb-0">{{ $totalGuru }}</div>
                 <div class="small">Guru & Staf</div>
             </div>
             <div class="col-6 col-md py-3 py-md-4" id="statItem">
@@ -284,9 +284,19 @@
             <div id="guruScroll" class="scroll-horizontal d-flex flex-nowrap overflow-hidden py-3 px-2">
                 <div class="ml-auto"></div>
                 @forelse ($guru as $item)
-                    <div class="card flex-shrink-0 border-0 shadow-sm {{ $loop->last ? '' : 'mr-3' }}" style="width:270px; max-width:85vw; border-radius:16px;">
-                        <div class="position-relative bg-secondary" style="border-radius:16px 16px 0 0;">
-                            <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->namaGuru }}" class="d-block w-100" style="height:250px; object-fit:cover; border-radius:16px 16px 0 0; pointer-events:none;">
+                    <div class="card flex-shrink-0 border-0 shadow-sm overflow-hidden {{ $loop->last ? '' : 'mr-3' }}" style="width:270px; max-width:85vw; border-radius:16px;">
+                        <div class="position bg-secondary" style="border-radius:16px 16px 0 0;">
+                            @if ($item->foto)
+                            <img src="{{ asset('storage/' . $item->foto) }}"
+                                 alt="{{ $item->namaGuru }}"
+                                 class="card-img-top w-100"
+                                 style="height: 260px; object-fit: cover;">
+                        @else
+                            <div class="d-flex align-items-center justify-content-center bg-gradient-primary text-white-50"
+                                 style="height: 260px;">
+                                <i class="fas fa-user fa-4x"></i>
+                            </div>
+                        @endif
                         </div>
                         <div class="card-body">
                             <h6 class="font-weight-bold text-dark mb-1">{{ $item->namaGuru }}</h6>

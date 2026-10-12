@@ -43,7 +43,7 @@ class publicController extends Controller
 
     public function guru(Request $request){
         $search = $request->input('search');
-        $guru = Guru::where(function($q) use ($search){
+        $data = Guru::where(function($q) use ($search){
             $q->where('namaGuru', 'like', '%' . $search . '%')
             ->orWhere('mapel', 'like', '%' . $search . '%');
         })

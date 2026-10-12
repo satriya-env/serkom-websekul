@@ -31,7 +31,7 @@
                             value="{{ old('judul') }}" required>
                     </div>
 
-                    {{-- Kategori (Enum: Foto / Video) --}}
+                    {{-- Kategori --}}
                     <div class="form-group">
                         <label for="kategori" class="text-light">Kategori</label>
                         <select class="form-control" id="kategori" name="kategori" required>

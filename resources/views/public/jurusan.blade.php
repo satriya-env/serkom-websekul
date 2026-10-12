@@ -14,6 +14,16 @@
         color: #fff !important;
         transform: translateY(-2px);
     }
+    #cardKarir{
+        background-color: #fff;
+        border-left-width: 4px !important;
+        transition: .25s;
+    }
+    #cardKarir:hover{
+        scale: 1.05;
+        background-color: #4e73df;
+        color: #fff
+    }
 </style>
 @endpush
 
@@ -92,15 +102,16 @@
                             @endforeach
                         </div>
 
-                        <h6 class="font-weight-bold text-dark mb-2">Prospek Karier</h6>
-                        <ul class="list-unstyled mb-0 d-inline-block d-md-block text-left">
+                        <h6 class="font-weight-bold text-dark mt-4 mb-3">
+                            Prospek Karier
+                        </h6>
+                        <div class="col text-left">
                             @foreach ($pecah($item->karier) as $k)
-                                <li class="d-flex align-items-start mb-1">
-                                    <i class="fas fa-check text-success small mr-2 mt-1"></i>
-                                    <span>{{ $k }}</span>
-                                </li>
+                                    <div class="d-flex flex-col align-items-center h-100 rounded shadow-sm border-left border-primary px-3 py-2 mb-2" id="cardKarir">
+                                        <span class="font-weight-bold small">{{ $k }}</span>
+                                    </div>
                             @endforeach
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>

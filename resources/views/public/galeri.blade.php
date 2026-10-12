@@ -163,7 +163,7 @@
         const media   = document.getElementById('galeriModalMedia');
         const modal   = document.getElementById('galeriModal');
 
-        // Filter Semua / Foto / Video
+        // Filter
         buttons.forEach(function (btn) {
             btn.addEventListener('click', function () {
                 buttons.forEach(function (b) {

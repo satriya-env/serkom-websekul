@@ -67,8 +67,7 @@
                             <img src="{{ asset('storage/' . $item->foto) }}"
                                  alt="{{ $item->namaGuru }}"
                                  class="card-img-top w-100"
-                                 style="height: 260px; object-fit: cover; object-position: top;"
-                                 loading="lazy">
+                                 style="height: 260px; object-fit: cover; object-position: top;">
                         @else
                             <div class="d-flex align-items-center justify-content-center bg-gradient-primary text-white-50"
                                  style="height: 260px;">
