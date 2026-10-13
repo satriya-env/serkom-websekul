@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nisn', 10);
             $table->string('namaSiswa', 40);
             $table->enum('jenisKelamin', ['Laki-laki', 'Perempuan']);
+            $table->string('idKelas')->references('id')->on('kelas');
             $table->year('tahunMasuk');
             $table->timestamps();
         });

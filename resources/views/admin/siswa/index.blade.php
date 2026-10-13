@@ -38,6 +38,7 @@
                     <th>NISN</th>
                     <th>Nama Siswa</th>
                     <th>Gender</th>
+                    <th>Kelas</th>
                     <th>Tahun Masuk</th>
                     <th></th>
                 </tr>
@@ -48,6 +49,7 @@
                         <td>{{$data->nisn}}</td>
                         <td>{{$data->namaSiswa}}</td>
                         <td>{{$data->jenisKelamin}}</td>
+                        <td>{{$data->kelas}}</td>
                         <td>{{$data->tahunMasuk}}</td>
                         <td class="text-center">
                             <div class="d-inline-flex align-items-center">

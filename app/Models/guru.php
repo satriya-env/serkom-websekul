@@ -11,11 +11,14 @@ class Guru extends Model
     protected $fillable = [
         'namaGuru',
         'nip',
-        'mapel',
+        'idMapel',
         'foto',
     ];
 
     public function guru(){
         return $this->hasMany(Eskul::class, 'idGuru', 'id');
+    }
+    public function mapel(){
+        return $this->belongsTo(mapel::class, 'idMapel', 'id');
     }
 }

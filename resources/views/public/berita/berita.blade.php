@@ -36,7 +36,7 @@
          style="background-image: linear-gradient(to bottom, rgba(0,0,0,.6), rgba(0,0,0,.25)), url('{{ asset('assets/img/banner.png') }}'); background-size: cover; background-position: center;">
         <div class="container pt-5 mt-lg-5">
             <span class="small font-weight-bold text-warning d-block pt-5">INFO TERKINI</span>
-            <h1 class="font-weight-bold mb-3">Artikel</h1>
+            <h1 class="font-weight-bold mb-3">Berita</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mb-0 py-3">
                     <li class="breadcrumb-item"><a href="{{ route('public.home') }}" class="text-white">Beranda</a></li>

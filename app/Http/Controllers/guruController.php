@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guru;
+use App\Models\mapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,8 +17,7 @@ class guruController extends Controller
         //
         $search = $request->input('search');
         $guru = Guru::where(function($q) use ($search){
-            $q->where('namaGuru', 'like', '%' . $search . '%')
-            ->orWhere('mapel', 'like', '%' . $search . '%');
+            $q->where('namaGuru', 'like', '%' . $search . '%');
         })->get();
         return view('admin.guru.index', compact('guru'));
     }
@@ -28,7 +28,8 @@ class guruController extends Controller
     public function create()
     {
         //
-        return view('admin.guru.create');
+        $mapel = mapel::all();
+        return view('admin.guru.create', compact('mapel'));
     }
 
     /**
@@ -37,10 +38,10 @@ class guruController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
+        $valid = $request->validate([
             'namaGuru' => 'required|string|max:40',
             'nip' => 'required|string|max:15',
-            'mapel' => 'required|string|max:40',
+            'idMapel' => 'required|exists:mapel,id',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
         ]);
         
@@ -48,12 +49,7 @@ class guruController extends Controller
             ? $request->file('foto')->store('guru', 'public')
             : null;
 
-        Guru::create([
-            'namaGuru' => $request->namaGuru,
-            'nip' => $request->nip,
-            'mapel' => $request->mapel,
-            'foto' => $path
-        ]);
+        Guru::create($valid);
         return redirect()->route('guru.index')->with('success','Data berhasil diperbarui');
     }
 
@@ -72,7 +68,8 @@ class guruController extends Controller
     {
         //
         $guru = Guru::findOrFail($id);
-        return view('admin.guru.update', compact('guru'));
+        $mapel = mapel::all();
+        return view('admin.guru.update', compact('guru', 'mapel'));
     }
 
     /**
@@ -82,11 +79,10 @@ class guruController extends Controller
     {
         //
         $guru = Guru::findOrFail($id);
-
         $request->validate([
             'namaGuru' => 'required|string|max:40',
             'nip' => 'required|string|size:15|unique:guru,nip,'.$guru->id,
-            'mapel' => 'required|string|max:40',
+            'idMapel' => 'required|exists:mapel,id',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
         ]);
         
@@ -100,7 +96,7 @@ class guruController extends Controller
 
         $guru->namaGuru = $request->namaGuru;
         $guru->nip      = $request->nip;
-        $guru->mapel    = $request->mapel;
+        $guru->idMapel    = $request->idMapel;
         $guru->save();
 
         return redirect()->route('guru.index')->with('success', 'Data berhasil ditambahkan');

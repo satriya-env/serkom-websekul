@@ -150,6 +150,9 @@
                 <li class="nav-item">
                     <a href="{{route('public.guru')}}" class="nav-link text-white">Daftar Guru</a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('public.siswa')}}" class="nav-link text-white">Daftar Siswa</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-white" href="#" id="programDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -162,6 +165,11 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('public.galeri') }}" class="nav-link text-white">Galeri</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('public.tentang')}}" class="nav-link text-white">
+                        <i class="fa fa-user-circle" style="font-size: 20px"></i>
+                    </a>
                 </li>
             </ul>
         </div>

@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\guruController;
     use App\Http\Controllers\publicController;
     use App\Http\Controllers\jurusanController;
-    use App\Http\Controllers\profilController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MapelController;
+use App\Http\Controllers\profilController;
     use App\Http\Controllers\siswaController;
     use App\Http\Controllers\userController;
 // MODEL USED
@@ -26,14 +28,19 @@ use Illuminate\Support\Facades\Route;
     Route::get('/profilsekolah', [publicController::class, 'profil'])->name('public.profil');
     // GURU
     Route::get('/daftarguru', [publicController::class, 'guru'])->name('public.guru');
+    // SISWA
+    Route::get('/datasiswa', [publicController::class, 'siswa'])->name('public.siswa');
     // BERITA
     Route::get('/artikel', [publicController::class, 'berita'])->name('public.berita');
     Route::get('/artikel/{slug}', [publicController::class, 'detail'])->name('detail.berita');
     // JURUSAN
     Route::get('/program-keahlian',[publicController::class, 'jurusan'])->name('public.jurusan');
-
-Route::get('/ekstrakulikuler', fn() => view('public.eskul', ['data' => Eskul::all()]))->name('public.eskul');
-Route::get('/galerisekolah', fn() => view('public.galeri', ['galeri' => Galeri::all()]))->name('public.galeri');
+    // ESKUL
+    Route::get('/ekstrakulikuler', fn() => view('public.eskul', ['data' => Eskul::all()]))->name('public.eskul');
+    // GALERI
+    Route::get('/galerisekolah', fn() => view('public.galeri', ['galeri' => Galeri::all()]))->name('public.galeri');
+    // PROFIL PENGEMBANG
+    Route::get('/tentang', function(){ return view('public.profile');})->name('public.tentang');
 
 // GUEST ROUTES (LOGIN)
 Route::middleware('guest')->group(function () {
@@ -62,6 +69,14 @@ Route::middleware('auth')->group(function () {
     // GURU
     Route::resource('guru', guruController::class)->except(['show', 'destroy']);
     Route::get('/guru/delete/{id}', [guruController::class, 'delete'])->name('guru.delete');
+
+    // MAPEL
+    Route::resource('mapel', MapelController::class)->except(['show', 'destroy']);
+    Route::get('/mapel/delete/{id}', [MapelController::class, 'delete'])->name('mapel.delete');
+    
+    // KELAS
+    Route::resource('kelas', KelasController::class)->except(['show', 'destroy']);
+    Route::get('/kelas/delete/{id}', [KelasController::class, 'delete'])->name('kelas.delete');
 
     // GALERI
     Route::resource('galeri', galeriController::class)->except(['show', 'destroy']);

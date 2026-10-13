@@ -4,7 +4,6 @@
 
 @push('style')
 <style>
-    /* Hanya animasi hover */
     .hover-fill {
         color: #4e73df;
         transition: background-color .25s ease, color .25s ease, transform .25s ease;
@@ -70,7 +69,7 @@
 
     {{-- DETAIL JURUSAN --}}
     @forelse ($data as $item)
-        <div id="{{ \Illuminate\Support\Str::slug($item->alias) }}" class="{{ $loop->even ? 'bg-light' : '' }}" style="scroll-margin-top: 90px;">
+        <div id="{{ $item->alias }}" class="{{ $loop->even ? 'bg-light' : '' }}" style="scroll-margin-top: 90px;">
             <div class="container py-5 my-lg-4">
                 <div class="row align-items-center">
                     {{-- Gambar --}}

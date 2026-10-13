@@ -63,26 +63,58 @@ class profilController extends Controller
         // 1. Definisikan pemetaan aturan validasi dan penanganan berkas per section
         $sections = [
             'sambutan' => [
-                'rules' => ['kepalaSekolah' => 'required|string|max:40', 'sambutan' => 'required|string', 'fotoKepala' => $imageRule],
-                'fields' => ['kepalaSekolah', 'sambutan'],
-                'files' => ['fotoKepala' => 'profil/kepala'],
+                'rules' => [
+                    'kepalaSekolah' => 'required|string|max:40', 
+                    'sambutan' => 'required|string', 
+                    'fotoKepala' => $imageRule
+                    ],
+                'fields' => [
+                    'kepalaSekolah', 'sambutan'
+                    ],
+                'files' => [
+                    'fotoKepala' => 'profil/kepala'
+                    ],
             ],
             'data-sekolah' => [
-                'rules' => ['namaSekolah' => 'required|string|max:40', 'npsn' => 'required|string|max:10', 'tahunBerdiri' => 'required|digits:4|integer', 'alamat' => 'required|string', 'kontak' => 'required|string|max:15'],
-                'fields' => ['namaSekolah', 'npsn', 'tahunBerdiri', 'alamat', 'kontak'],
+                'rules' => [
+                    'namaSekolah' => 'required|string|max:40', 
+                    'npsn' => 'required|string|max:10', 
+                    'tahunBerdiri' => 'required|digits:4|integer', 
+                    'alamat' => 'required|string', 
+                    'kontak' => 'required|string|max:15'
+                    ],
+                'fields' => [
+                    'namaSekolah', 
+                    'npsn', 
+                    'tahunBerdiri', 
+                    'alamat', 
+                    'kontak'],
             ],
             'sejarah' => [
                 'rules' => ['sejarah' => 'required|string'],
                 'fields' => ['sejarah'],
             ],
             'visi-misi' => [
-                'rules' => ['visi' => 'required|string', 'misi' => 'required|string'],
-                'fields' => ['visi', 'misi'],
+                'rules' => [
+                    'visi' => 'required|string', 
+                    'misi' => 'required|string'
+                    ],
+                'fields' => [
+                    'visi', 
+                    'misi'
+                    ],
             ],
             'lainnya' => [
-                'rules' => ['deskripsi' => 'required|string', 'logoSekolah' => $imageRule, 'fotoSekolah' => $imageRule],
+                'rules' => [
+                    'deskripsi' => 'required|string', 
+                    'logoSekolah' => $imageRule, 
+                    'fotoSekolah' => $imageRule
+                    ],
                 'fields' => ['deskripsi'],
-                'files' => ['logoSekolah' => 'profil/logo', 'fotoSekolah' => 'profil/sekolah'],
+                'files' => [
+                    'logoSekolah' => 'profil/logo', 
+                    'fotoSekolah' => 'profil/sekolah'
+                    ],
             ],
         ];
 

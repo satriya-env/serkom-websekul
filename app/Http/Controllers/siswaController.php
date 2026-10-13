@@ -13,15 +13,6 @@ class siswaController extends Controller
      */
     public function index(Request $request)
     {
-        //READ ALL
-        // $siswa = Siswa::when($request->filled('tahunMasuk'), function ($query) use ($request){
-        //     return $query->where('tahunMasuk', $request->tahunMasuk);
-        // })->get();
-
-        // // FILTER TAHUN MASUK
-        // $filter =Siswa::distinct('tahunMasuk')
-        //                 ->orderBy('tahunMasuk', 'desc')
-        //                 ->pluck('tahunMasuk'); 
         $search = $request->input('search');
         $siswa = Siswa::where(function($q) use ($search){
             $q->where('namaSiswa', 'like', '%' . $search . '%')
@@ -50,6 +41,7 @@ class siswaController extends Controller
             'nisn' => 'required|string|size:10|unique:siswa,nisn',
             'namaSiswa' => 'required|string|max:40',
             'jenisKelamin' => 'required|in:Laki-laki,Perempuan',
+            'idKelas' => 'required|exists:kelas,id',
             'tahunMasuk' => 'required|integer|digits:4',
         ]);
 
@@ -57,6 +49,7 @@ class siswaController extends Controller
             'nisn' => $request->nisn,
             'namaSiswa' => $request->namaSiswa,
             'jenisKelamin' => $request->jenisKelamin,
+            'idKelas' => $request->kelas,
             'tahunMasuk' => $request->tahunMasuk,
         ]);
 
@@ -89,15 +82,17 @@ class siswaController extends Controller
         //
         $siswa = Siswa::findOrFail($id);
         $request->validate([
-            'nisn' => 'required|string|max:10',
+            'nisn' => 'required|string|size:10|unique:siswa,nisn',
             'namaSiswa' => 'required|string|max:40',
             'jenisKelamin' => 'required|in:Laki-laki,Perempuan',
-            'tahunMasuk' => 'required|integer|digits:4|min:1998|max:'.date('Y'),
+            'idKelas' => 'required|exists:kelas,id',
+            'tahunMasuk' => 'required|integer|digits:4',
         ]);
         $siswa->update([
             'nisn' => $request->nisn,
             'namaSiswa' => $request->namaSiswa,
             'jenisKelamin' => $request->jenisKelamin,
+            'kelas' => $request->kelas,
             'tahunMasuk' => $request->tahunMasuk,
         ]);
 

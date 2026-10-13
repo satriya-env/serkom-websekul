@@ -8,6 +8,14 @@
         --bg-primary: #1a2b88; 
         --bg-biru: #2653d4; 
     }
+
+    #slide #btnSlide{
+        opacity: 0;
+        transition: .25s;
+    }
+    #slide:hover #btnSlide{
+        opacity: 1;
+    }
     #cardSambutan{
         transition: .25s;
     }
@@ -111,11 +119,11 @@
             </div>
         </div>
 
-        <a class="carousel-control-prev d-none d-sm-flex" href="#slide" role="button" data-slide="prev">
+        <a class="carousel-control-prev d-none d-sm-flex" href="#slide" role="button" data-slide="prev" id="btnSlide">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Sebelumnya</span>
         </a>
-        <a class="carousel-control-next d-none d-sm-flex" href="#slide" role="button" data-slide="next">
+        <a class="carousel-control-next d-none d-sm-flex" href="#slide" role="button" data-slide="next" id="btnSlide">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Berikutnya</span>
         </a>
@@ -135,15 +143,15 @@
             </div>
             <div class="col-4 col-md py-3 py-md-4" id="statItem">
                 <div class="h2 font-weight-bold mb-0">{{ $totalGuru }}</div>
-                <div class="small">Guru & Staf</div>
-            </div>
-            <div class="col-6 col-md py-3 py-md-4" id="statItem">
-                <div class="h2 font-weight-bold mb-0">{{ count($eskul) }}</div>
-                <div class="small">Ekstrakurikuler</div>
+                <div class="small">Guru</div>
             </div>
             <div class="col-6 col-md py-3 py-md-4" id="statItem">
                 <div class="h2 font-weight-bold mb-0">{{ count($jurusan) }}</div>
                 <div class="small">Jurusan</div>
+            </div>
+            <div class="col-6 col-md py-3 py-md-4" id="statItem">
+                <div class="h2 font-weight-bold mb-0">{{ count($eskul) }}</div>
+                <div class="small">Ekstrakurikuler</div>
             </div>
         </div>
     </div>
@@ -301,7 +309,7 @@
                         <div class="card-body">
                             <h6 class="font-weight-bold text-dark mb-1">{{ $item->namaGuru }}</h6>
                             <p class="small text-muted mb-0 overflow-hidden" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;">
-                                {{ $item->mapel ?? $item->jabatan ?? '' }}
+                                {{ $item->mapel->pelajaran}}
                             </p>
                         </div>
                     </div>

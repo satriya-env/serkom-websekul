@@ -44,10 +44,9 @@
             <tbody>
                 @forelse ($guru as $data)
                     <tr>
-                        {{-- <td>{{$iteration}}</td> --}}
                         <td>{{$data->nip}}</td>
                         <td>{{$data->namaGuru}}</td>
-                        <td>{{$data->mapel}}</td>
+                        <td>{{$data->mapel->pelajaran}}</td>
                         <td>
                             <img src="{{Storage::url($data->foto)}}" 
                                 alt="foto"

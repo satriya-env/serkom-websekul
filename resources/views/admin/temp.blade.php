@@ -80,7 +80,9 @@
                 <div id="collapseUser" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('siswa.index')}}">Siswa</a>
+                        <a class="collapse-item" href="{{route('kelas.index')}}">Kelas</a>
                         <a class="collapse-item" href="{{route('guru.index')}}">Guru</a>
+                        <a class="collapse-item" href="{{route('mapel.index')}}">Mata Pelajaran</a>
                     </div>
                 </div>
             </li>

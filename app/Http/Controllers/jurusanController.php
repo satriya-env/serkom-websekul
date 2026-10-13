@@ -30,9 +30,14 @@ class jurusanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = jurusan::all();
+        $search = $request->input('search');
+        
+        $data = jurusan::where(function($q) use ($search) {
+            $q->where('alias', 'like', '%' . $search . '%')
+            ->orWhere('nama', 'like', '%' . $search . '%');
+        })->latest()->get();
 
         return view('admin.jurusan.index', compact('data'));
     }

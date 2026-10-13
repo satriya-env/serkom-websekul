@@ -6,6 +6,7 @@ use App\Models\Berita;
 use App\Models\Eskul;
 use App\Models\Galeri;
 use App\Models\Guru;
+use App\Models\kelas;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -23,13 +24,15 @@ class DatabaseSeeder extends Seeder
         $this->call([
             userSeeder::class,
             profilSeeder::class,
+            mapelSeeder::class,
+            kelasSeeder::class,
             siswaSeeder::class,
             guruSeeder::class,
             jurusanSeeder::class,
             eskulSeeder::class,
             beritaSeeder::class,
             galeriSeeder::class,
-            sosmedSeeder::class
+            sosmedSeeder::class,
         ]);
     }
 }

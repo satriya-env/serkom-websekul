@@ -42,19 +42,23 @@
     {{-- SEJARAH --}}
     <div class="container py-5 my-lg-4">
         <div class="row align-items-center">
+            @php
+                $items = array_filter(array_map('trim', explode('.', $profil->sejarah)));
+            @endphp
             {{-- Gambar --}}
             <div class="col-md-5 mb-4 mb-md-0">
                 <img src="{{ asset('assets/img/sample.jpg') }}"
                      alt="Gedung SMK YPC Tasikmalaya"
-                     class="img-fluid w-100 rounded shadow-sm"
-                     loading="lazy">
+                     class="img-fluid w-100 rounded shadow-sm">
             </div>
 
             {{-- Teks --}}
             <div class="col-md-7 pl-md-5 text-center text-md-left">
                 <span class="text-warning d-block mb-1">SEKILAS SEKOLAH</span>
                 <h2 class="text-primary font-weight-bold h3 mb-3">Sejarah SMK YPC Tasikmalaya</h2>
-                <p>{{ $profil->sejarah }}</p>
+                @foreach ($items as $item)
+                    <p>{{$item}}.</p>
+                @endforeach
             </div>
         </div>
     </div>

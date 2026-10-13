@@ -77,11 +77,8 @@
 
                         <div class="card-body px-3 py-4">
                             <h6 class="font-weight-bold text-dark mb-1">{{ $item->namaGuru }}</h6>
-                            @if ($item->jabatan ?? null)
-                                <span class="badge badge-warning text-white mb-2">{{ $item->jabatan }}</span>
-                            @endif
                             @if ($item->mapel ?? null)
-                                <p class="small text-muted mb-0">{{ $item->mapel }}</p>
+                                <p class="small text-muted mb-0">{{ $item->mapel->pelajaran }}</p>
                             @endif
                         </div>
                     </div>

@@ -6,6 +6,7 @@ use App\Models\Berita;
 use App\Models\Eskul;
 use App\Models\Guru;
 use App\Models\jurusan;
+use App\Models\kelas;
 use App\Models\Profil;
 use App\Models\Siswa;
 use App\Models\sosmed;
@@ -44,8 +45,7 @@ class publicController extends Controller
     public function guru(Request $request){
         $search = $request->input('search');
         $data = Guru::where(function($q) use ($search){
-            $q->where('namaGuru', 'like', '%' . $search . '%')
-            ->orWhere('mapel', 'like', '%' . $search . '%');
+            $q->where('namaGuru', 'like', '%' . $search . '%');
         })
         ->orderBy('namaGuru')
         ->paginate(12)
@@ -89,5 +89,15 @@ class publicController extends Controller
     public function sosmed(){
         $sosmed = sosmed::all();
         return view('public.temp', compact('sosmed'));
+    }
+
+    public function siswa(Request $request){
+        $kelas = kelas::all();
+
+        $search = $request->input('search');
+        $data = Siswa::where(function($q) use ($search){
+            $q->where('namaSiswa', 'like', '%' . $search . '%');
+        })->get();
+        return view('public.siswa', compact('data', 'kelas'));
     }
 }

@@ -13,6 +13,11 @@ class Siswa extends Model
         'nisn',
         'namaSiswa',
         'jenisKelamin',
+        'idKelas',
         'tahunMasuk',
     ];
+
+    public function kelas(){
+        return $this->belongsTo(kelas::class, 'idKelas', 'id');
+    }
 }

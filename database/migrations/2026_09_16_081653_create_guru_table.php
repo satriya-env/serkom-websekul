@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('namaGuru', 40);
             $table->string('nip',15);
-            $table->string('mapel',40);
+            $table->string('idMapel')->references('id')->on('mapel');
             $table->string('foto',100);
             $table->timestamps();
         });
